@@ -31,3 +31,7 @@ Route::post('/place', 'PlaceController@store')->name('place.store');
 Route::get('/expatriate', 'ExpatriateController@index')->name('expatriate');
 Route::get('/expatriate/create', 'ExpatriateController@create')->name('expatriate.create');
 Route::post('/expatriate', 'ExpatriateController@store')->name('expatriate.store');
+
+Route::get('/expatriate-details', 'ExpatriateDetailController@index')->name('expatriate-details');
+Route::get('/expatriate-details/create', 'ExpatriateDetailController@create')->name('expatriate-details.create');
+Route::post('/expatriate-details', 'ExpatriateDetailController@store')->name('expatriate-details.store');
