@@ -61,7 +61,8 @@ class PlaceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $place = Place::find($id);
+        return view('edit_place', compact('place'));
     }
 
     /**
@@ -73,7 +74,10 @@ class PlaceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $place = Place::find($id);
+        $place->name = $request->name;
+        $place->save();
+        return redirect()->route('place');
     }
 
     /**

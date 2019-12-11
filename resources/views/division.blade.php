@@ -24,8 +24,23 @@
                                 <tr>
                                     <td>{{$division->id}}</td>
                                     <td>{{$division->name}}</td>
-                                    <td>{{$division->created_at}}</td>
-                                    <td></td>
+                                    <td>
+                                        <a href="{{ route('division.edit',['id'=>$division->id]) }}"
+                                           class="btn btn-primary">
+                                            <span>
+                                                <i class="fa fa-edit"></i>
+                                            </span>
+                                        </a>
+                                        <a href="#">
+                                            <button class="btn btn-danger" style="display: inline"
+                                                    data-confirm="Hapus?|Apakah {{ $division->name }} akan dihapus?"
+                                                    data-confirm-yes="{{ url('/division/delete/'.$division->id) }}">
+                                                <span>
+                                                    <i class="fa fa-trash"></i>
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>
@@ -52,4 +67,8 @@
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    </script>
 @endsection

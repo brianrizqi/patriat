@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Division;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\AssignOp\Div;
 
 class DivisionController extends Controller
 {
@@ -15,7 +16,7 @@ class DivisionController extends Controller
     public function index()
     {
         $divisions = Division::all();
-        return view('division',compact('divisions'));
+        return view('division', compact('divisions'));
     }
 
     /**
@@ -61,7 +62,8 @@ class DivisionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $division = Division::find($id);
+        return view('edit_division', compact('division'));
     }
 
     /**
@@ -73,7 +75,10 @@ class DivisionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $division = Division::find($id);
+        $division->name = $request->name;
+        $division->save();
+        return redirect()->route('division');
     }
 
     /**
@@ -84,6 +89,8 @@ class DivisionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $division = Division::find($id);
+        $division->delete();
+        return redirect()->route('division');
     }
 }

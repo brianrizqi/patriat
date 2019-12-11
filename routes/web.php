@@ -22,11 +22,16 @@ Route::get('/', 'HomeController@index')->name('dashboard');
 
 Route::get('/division', 'DivisionController@index')->name('division');
 Route::get('/division/create', 'DivisionController@create')->name('division.create');
+Route::get('/division/edit/{id}', 'DivisionController@edit')->name('division.edit');
 Route::post('/division', 'DivisionController@store')->name('division.store');
+Route::post('/division/{id}/edit', 'DivisionController@update')->name('division.update');
+Route::get('/division/delete/{id}', 'DivisionController@destroy')->name('division.delete');
 
 Route::get('/place', 'PlaceController@index')->name('place');
 Route::get('/place/create', 'PlaceController@create')->name('place.create');
+Route::get('/place/edit/{id}', 'PlaceController@edit')->name('place.edit');
 Route::post('/place', 'PlaceController@store')->name('place.store');
+Route::post('/place/{id}/edit', 'PlaceController@update')->name('place.update');
 
 Route::get('/expatriate', 'ExpatriateController@index')->name('expatriate');
 Route::get('/expatriate/create', 'ExpatriateController@create')->name('expatriate.create');
