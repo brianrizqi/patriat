@@ -77,7 +77,7 @@
                     '_token': '{{ csrf_token() }}',
                 },
                 success: function () {
-                    window.location.href = '{{ route('place') }}';
+                    location.href = '{{ route('place') }}';
                     // return false;
                 }
             })
