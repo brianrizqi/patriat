@@ -32,7 +32,23 @@
                                     <td>{{$expatriate->email}}</td>
                                     <td>{{$expatriate->phone}}</td>
                                     <td>{{$expatriate->gender}}</td>
-                                    <td></td>
+                                    <td>
+                                        <a href="{{ route('expatriate.edit',['id'=>$expatriate->id]) }}"
+                                           class="btn btn-primary">
+                                            <span>
+                                                <i class="fa fa-edit"></i>
+                                            </span>
+                                        </a>
+                                        <a href="#">
+                                            <button class="btn btn-danger" style="display: inline"
+                                                    data-confirm="Hapus?|Apakah {{ $expatriate->name }} akan dihapus?"
+                                                    data-confirm-yes="">
+                                                <span>
+                                                    <i class="fa fa-trash"></i>
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>

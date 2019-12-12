@@ -66,7 +66,10 @@ class ExpatriateDetailController extends Controller
      */
     public function edit($id)
     {
-        //
+        $detail = ExpatriateDetail::find($id);
+        $expatriates = Expatriate::all();
+        $divisions = Division::all();
+        return view('edit_expatriate_details', compact('detail', 'expatriates', 'divisions'));
     }
 
     /**
@@ -78,7 +81,11 @@ class ExpatriateDetailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $detail = ExpatriateDetail::find($id);
+        $detail->division_id = $request->division;
+        $detail->expatriate_id = $request->expatriate;
+        $detail->save();
+        return redirect()->route('expatriate-details');
     }
 
     /**

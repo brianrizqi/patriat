@@ -65,7 +65,8 @@ class ExpatriateController extends Controller
      */
     public function edit($id)
     {
-        //
+        $expatriate = Expatriate::find($id);
+        return view('edit_expatriate', compact('expatriate'));
     }
 
     /**
@@ -77,7 +78,14 @@ class ExpatriateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $expatriate = Expatriate::find($id);
+        $expatriate->name = $request->name;
+        $expatriate->address = $request->address;
+        $expatriate->gender = $request->gender;
+        $expatriate->email = $request->email;
+        $expatriate->phone = $request->phone;
+        $expatriate->save();
+        return redirect()->route('expatriate');
     }
 
     /**

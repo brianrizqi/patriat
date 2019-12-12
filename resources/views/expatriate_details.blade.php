@@ -27,7 +27,23 @@
                                     <td>{{$detail->id}}</td>
                                     <td>{{$detail->expatriate->name}}</td>
                                     <td>{{$detail->division->name}}</td>
-                                    <td></td>
+                                    <td>
+                                        <a href="{{ route('expatriate-details.edit',['id'=>$detail->id]) }}"
+                                           class="btn btn-primary">
+                                            <span>
+                                                <i class="fa fa-edit"></i>
+                                            </span>
+                                        </a>
+                                        <a href="#">
+                                            <button class="btn btn-danger" style="display: inline"
+                                                    data-confirm="Hapus?|Apakah {{ $detail->name }} akan dihapus?"
+                                                    data-confirm-yes="">
+                                                <span>
+                                                    <i class="fa fa-trash"></i>
+                                                </span>
+                                            </button>
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>
