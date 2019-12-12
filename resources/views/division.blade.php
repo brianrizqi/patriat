@@ -34,7 +34,7 @@
                                         <a href="#">
                                             <button class="btn btn-danger" style="display: inline"
                                                     data-confirm="Hapus?|Apakah {{ $division->name }} akan dihapus?"
-                                                    data-confirm-yes="{{ url('/division/delete/'.$division->id) }}">
+                                                    data-confirm-yes="deleted({{ $division->id }})">
                                                 <span>
                                                     <i class="fa fa-trash"></i>
                                                 </span>
@@ -69,6 +69,14 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript">
-
+        function deleted(id) {
+            $.ajax({
+                url: {{ route('division.delete',['id'=>id]) }},
+                success: (response) => {
+                    window.location.href = {{ route('division') }};
+                    return false;
+                }
+            })
+        }
     </script>
 @endsection

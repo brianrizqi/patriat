@@ -60,14 +60,14 @@
                     <li class="menu-header">Starter</li>
                     <li>
                         <a href="{{ route('dashboard') }}" class="nav-link"><i
-                                class="fas fa-square"></i><span>Dashboard</span></a>
+                                class="fas fa-chart-line"></i><span>Dashboard</span></a>
                     </li>
                     {{--                    <li>--}}
                     {{--                        <a href="#" class="nav-link"><i class="fas fa-square"></i><span>Users</span></a>--}}
                     {{--                    </li>--}}
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link has-dropdown"><i
-                                class="fas fa-square"></i><span>Eksaptriat</span></a>
+                                class="fas fa-child"></i><span>Eksaptriat</span></a>
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" href="{{ route('expatriate') }}">Data Ekspatriat</a></li>
                             <li><a class="nav-link" href="{{ route('expatriate-details') }}">Divisi Ekspatriat</a></li>
@@ -75,14 +75,14 @@
                     </li>
                     <li>
                         <a href="{{ route('division') }}" class="nav-link"><i
-                                class="fas fa-square"></i><span>Divisi</span></a>
+                                class="fas fa-dice-d6"></i><span>Divisi</span></a>
                     </li>
                     <li>
                         <a href="{{ route('place') }}" class="nav-link"><i
-                                class="fas fa-square"></i><span>Data Tempat</span></a>
+                                class="fas fa-building"></i><span>Data Tempat</span></a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ route('scheduling') }}"><i class="far fa-user"></i>
+                        <a class="nav-link" href="{{ route('scheduling') }}"><i class="far fa-calendar-check"></i>
                             <span>Penjadwalan</span>
                         </a>
                     </li>
