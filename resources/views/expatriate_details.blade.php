@@ -3,7 +3,7 @@
     <div class="section-header">
         <h1>Detail Ekspatriat</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{ route('expatriate-details.create') }}">Tambah Detail
+            <div class="breadcrumb-item active"><a href="{{ route('expatriate-details.create') }}" class="btn btn-primary">Tambah Detail
                     Ekspatriat</a></div>
         </div>
     </div>

@@ -78,7 +78,7 @@
                 },
                 success: function () {
                     window.location.href = '{{ route('place') }}';
-                    return false;
+                    // return false;
                 }
             })
         }

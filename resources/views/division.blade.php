@@ -3,7 +3,7 @@
     <div class="section-header">
         <h1>Divisi</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{ route('division.create') }}">Tambah Divisi</a></div>
+            <div class="breadcrumb-item active"><a href="{{ route('division.create') }}" class="btn btn-primary">Tambah Divisi</a></div>
         </div>
     </div>
     <div class="row">
