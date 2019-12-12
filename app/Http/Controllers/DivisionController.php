@@ -87,9 +87,9 @@ class DivisionController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $division = Division::find($id);
+        $division = Division::find($request->id);
         $division->delete();
         return redirect()->route('division');
     }

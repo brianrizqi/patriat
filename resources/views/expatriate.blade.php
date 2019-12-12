@@ -42,7 +42,7 @@
                                         <a href="#">
                                             <button class="btn btn-danger" style="display: inline"
                                                     data-confirm="Hapus?|Apakah {{ $expatriate->name }} akan dihapus?"
-                                                    data-confirm-yes="">
+                                                    data-confirm-yes="remove({{ $expatriate->id }})">
                                                 <span>
                                                     <i class="fa fa-trash"></i>
                                                 </span>
@@ -75,4 +75,20 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function remove(id) {
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('expatriate.destroy')}}',
+                data: {
+                    'id': id,
+                    '_token': '{{ csrf_token() }}',
+                },
+                success: function () {
+                    window.location.href = '{{ route('expatriate') }}';
+                    return false;
+                }
+            })
+        }
+    </script>
 @endsection
