@@ -3,7 +3,7 @@
     <div class="section-header">
         <h1>Tempat</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{ route('place.create') }}">Tambah Tempat</a></div>
+            <div class="breadcrumb-item active"><a href="{{ route('place.create') }}" class="btn btn-primary">Tambah Tempat</a></div>
         </div>
     </div>
     <div class="row">
