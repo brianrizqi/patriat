@@ -70,9 +70,13 @@
                             <li><a class="nav-link" href="{{ route('expatriate-details') }}">Divisi Ekspatriat</a></li>
                         </ul>
                     </li>
-                    <li class="{{ Request::is('division') ?  'active' : '' }}">
-                        <a href="{{ route('division') }}" class="nav-link"><i
+                    <li class="nav-item dropdown {{ Request::is('division') ?  'active' : '' || Request::is('division-details') ?  'active' : '' }}">
+                        <a href="" class="nav-link has-dropdown"><i
                                 class="fas fa-dice-d6"></i><span>Divisi</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" href="{{ route('division') }}">Divisi</a></li>
+                            <li><a class="nav-link" href="{{ route('division-details') }}">Detail Divisi</a></li>
+                        </ul>
                     </li>
                     <li class="{{ Request::is('place') ?  'active' : '' }}">
                         <a href="{{ route('place') }}" class="nav-link"><i

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Division;
+use App\DivisionDetail;
 use Illuminate\Http\Request;
 
-class SchedulingController extends Controller
+class DivisionDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +15,8 @@ class SchedulingController extends Controller
      */
     public function index()
     {
-        $divisions = Division::all();
-        $data = array();
-        for ($i = 0; $i < $divisions->count(); $i++){
-
-        }
-        return view('scheduling');
+        $details = DivisionDetail::all();
+        return view('division_details', compact('details'));
     }
 
     /**
@@ -29,7 +26,8 @@ class SchedulingController extends Controller
      */
     public function create()
     {
-        //
+        $divisions = Division::all();
+        return view('create_division_details', compact('divisions'));
     }
 
     /**
@@ -40,7 +38,11 @@ class SchedulingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $detail = new DivisionDetail();
+        $detail->division_a = $request->division_a;
+        $detail->division_b = $request->division_b;
+        $detail->save();
+        return redirect()->route('division-details');
     }
 
     /**

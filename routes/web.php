@@ -48,4 +48,11 @@ Route::post('/expatriate-details', 'ExpatriateDetailController@store')->name('ex
 Route::post('/expatriate-details/{id}/edit', 'ExpatriateDetailController@update')->name('expatriate-details.update');
 Route::post('/expatriate-details/delete', 'ExpatriateDetailController@destroy')->name('expatriate-details.destroy');
 
+Route::get('/division-details', 'DivisionDetailController@index')->name('division-details');
+Route::get('/division-details/create', 'DivisionDetailController@create')->name('division-details.create');
+Route::get('/division-details/edit/{id}', 'DivisionDetailController@edit')->name('division-details.edit');
+Route::post('/division-details', 'DivisionDetailController@store')->name('division-details.store');
+Route::post('/division-details/{id}/edit', 'DivisionDetailController@update')->name('division-details.update');
+Route::post('/division-details/delete', 'DivisionDetailController@destroy')->name('division-details.destroy');
+
 Route::get('/scheduling', 'SchedulingController@index')->name('scheduling');
