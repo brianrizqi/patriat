@@ -58,14 +58,11 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li class="menu-header">Starter</li>
-                    <li>
+                    <li class="{{ Request::is('/') ?  'active' : '' }}">
                         <a href="{{ route('dashboard') }}" class="nav-link"><i
                                 class="fas fa-chart-line"></i><span>Dashboard</span></a>
                     </li>
-                    {{--                    <li>--}}
-                    {{--                        <a href="#" class="nav-link"><i class="fas fa-square"></i><span>Users</span></a>--}}
-                    {{--                    </li>--}}
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {{ Request::is('expatriate') ?  'active' : '' || Request::is('expatriate-details') ?  'active' : ''}}">
                         <a href="#" class="nav-link has-dropdown"><i
                                 class="fas fa-child"></i><span>Eksaptriat</span></a>
                         <ul class="dropdown-menu">
@@ -73,15 +70,15 @@
                             <li><a class="nav-link" href="{{ route('expatriate-details') }}">Divisi Ekspatriat</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="{{ Request::is('division') ?  'active' : '' }}">
                         <a href="{{ route('division') }}" class="nav-link"><i
                                 class="fas fa-dice-d6"></i><span>Divisi</span></a>
                     </li>
-                    <li>
+                    <li class="{{ Request::is('place') ?  'active' : '' }}">
                         <a href="{{ route('place') }}" class="nav-link"><i
                                 class="fas fa-building"></i><span>Data Tempat</span></a>
                     </li>
-                    <li>
+                    <li class="{{ Request::is('scheduling') ?  'active' : '' }}">
                         <a class="nav-link" href="{{ route('scheduling') }}"><i class="far fa-calendar-check"></i>
                             <span>Penjadwalan</span>
                         </a>
