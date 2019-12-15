@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Division;
+use App\DivisionDetail;
 use Illuminate\Http\Request;
 
 class SchedulingController extends Controller
@@ -14,11 +15,23 @@ class SchedulingController extends Controller
      */
     public function index()
     {
+        $detail = DivisionDetail::all();
         $divisions = Division::all();
         $data = array();
-        for ($i = 0; $i < $divisions->count(); $i++){
-
+        foreach ($divisions as $i => $division_a) {
+            foreach ($divisions as $j => $division_b) {
+                if (DivisionDetail::where('division_a', $division_a->id)
+                        ->where('division_b', $division_b->id)->first() == null) {
+                    $data[$i][$j] = 0;
+                } else if (DivisionDetail::where('division_b', $division_a->id)
+                        ->where('division_a', $division_b->id)->first() == null) {
+                    $data[$i][$j] = 0;
+                } else {
+                    $data[$i][$j] = 1;
+                }
+            }
         }
+        return $data;
         return view('scheduling');
     }
 

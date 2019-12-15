@@ -22,7 +22,7 @@
                             </tr>
                             @foreach($divisions as $division)
                                 <tr>
-                                    <td>{{$division->id}}</td>
+                                    <td>D0{{$division->id}}</td>
                                     <td>{{$division->name}}</td>
                                     <td>
                                         <a href="{{ route('division.edit',['id'=>$division->id]) }}"

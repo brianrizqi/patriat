@@ -19,13 +19,15 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Divisi</th>
+                                <th>ID</th>
                                 <th>Divisi</th>
                                 <th>Action</th>
                             </tr>
                             @foreach($details as $division)
                                 <tr>
-                                    <td>{{$division->id}}</td>
+                                    <td>D0{{$division->division_a}}</td>
                                     <td>{{$division->divisionDetails_a->name}}</td>
+                                    <td>D0{{$division->division_b}}</td>
                                     <td>{{$division->divisionDetails_b->name}}</td>
                                     <td>
                                         <a href="{{ route('division.edit',['id'=>$division->id]) }}"
