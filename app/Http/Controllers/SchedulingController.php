@@ -21,18 +21,17 @@ class SchedulingController extends Controller
         foreach ($divisions as $i => $division_a) {
             foreach ($divisions as $j => $division_b) {
                 if (DivisionDetail::where('division_a', $division_a->id)
-                        ->where('division_b', $division_b->id)->first() == null) {
-                    $data[$i][$j] = 0;
-                } else if (DivisionDetail::where('division_b', $division_a->id)
-                        ->where('division_a', $division_b->id)->first() == null) {
-                    $data[$i][$j] = 0;
-                } else {
+                        ->where('division_b', $division_b->id)->first() != null) {
                     $data[$i][$j] = 1;
+                } else if (DivisionDetail::where('division_b', $division_a->id)
+                        ->where('division_a', $division_b->id)->first() != null) {
+                    $data[$i][$j] = 1;
+                } else {
+                    $data[$i][$j] = 0;
                 }
             }
         }
-        return $data;
-        return view('scheduling');
+        return view('scheduling',compact('data'));
     }
 
     /**
