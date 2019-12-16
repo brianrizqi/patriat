@@ -15,7 +15,7 @@ class DivisionDetailController extends Controller
      */
     public function index()
     {
-        $details = DivisionDetail::all();
+        $details = DivisionDetail::paginate(10);
         return view('division_details', compact('details'));
     }
 

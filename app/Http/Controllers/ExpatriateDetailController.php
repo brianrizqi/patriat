@@ -16,7 +16,7 @@ class ExpatriateDetailController extends Controller
      */
     public function index()
     {
-        $details = ExpatriateDetail::all();
+        $details = ExpatriateDetail::paginate(10);
         return view('expatriate_details', compact('details'));
     }
 

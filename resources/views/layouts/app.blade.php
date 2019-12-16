@@ -57,7 +57,7 @@
                     <a href="index.html">EE</a>
                 </div>
                 <ul class="sidebar-menu">
-                    <li class="menu-header">Starter</li>
+                    <li class="menu-header" style="color: white">.</li>
                     <li class="{{ Request::is('/') ?  'active' : '' }}">
                         <a href="{{ route('dashboard') }}" class="nav-link"><i
                                 class="fas fa-chart-line"></i><span>Dashboard</span></a>

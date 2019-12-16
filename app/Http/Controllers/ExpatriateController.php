@@ -14,7 +14,7 @@ class ExpatriateController extends Controller
      */
     public function index()
     {
-        $expatriates = Expatriate::all();
+        $expatriates = Expatriate::paginate(10);
         return view('expatriate', compact('expatriates'));
     }
 
