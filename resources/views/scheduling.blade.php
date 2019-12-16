@@ -119,7 +119,8 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
                             <tr>
-                                <th>ID</th>
+                                <th>Divisi</th>
+                                <th>Jumlah</th>
                             </tr>
                             @php
                                 $filter = array();
@@ -134,15 +135,20 @@
                                     @endphp
                                 @endfor
                                 @php
-                                    $filter[$i] = $jumlah;
+                                    $filter[$i]['divisi'] = \App\Division::find($i+1)->name;
+                                    $filter[$i]['jumlah'] = $jumlah;
                                 @endphp
                             @endfor
                             @php
-                                rsort($filter);
+                                usort($filter, function ($a, $b) {
+            if ($a['jumlah'] == $b['jumlah']) return 0;
+            return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
+        });
                             @endphp
                             @for ($i = 0; $i < count($matrix); $i++)
                                 <tr>
-                                    <th>{{ $filter[$i] }}</th>
+                                    <td>{{ $filter[$i]['divisi'] }}</td>
+                                    <td>{{ $filter[$i]['jumlah'] }}</td>
                                 </tr>
                             @endfor
                         </table>
@@ -159,11 +165,13 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
                             <tr>
-                                <th>ID</th>
+                                <th>Index</th>
+                                <th>Divisi</th>
                             </tr>
                             @for ($i = 0; $i < count($matrix); $i++)
                                 <tr>
                                     <th>{{ $i + 1 }}</th>
+                                    <td>{{ $filter[$i]['divisi'] }}</td>
                                 </tr>
                             @endfor
                         </table>

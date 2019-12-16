@@ -46,7 +46,7 @@ class SchedulingController extends Controller
                 }
             }
         }
-        return view('scheduling', compact('matrix','detail'));
+        return view('scheduling', compact('matrix', 'detail'));
     }
 
     /**
