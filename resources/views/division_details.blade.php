@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="section-header">
-        <h1>Divisi</h1>
+        <h1>Detail Divisi</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('division-details.create') }}"
                                                    class="btn btn-primary">Tambah Detail Divisi</a></div>

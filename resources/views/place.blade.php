@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="section-header">
-        <h1>Tempat</h1>
+        <h1>Data Tempat</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('place.create') }}" class="btn btn-primary">Tambah Tempat</a></div>
         </div>

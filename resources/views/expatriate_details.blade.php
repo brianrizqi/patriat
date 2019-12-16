@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
     <div class="section-header">
-        <h1>Detail Ekspatriat</h1>
+        <h1>Divisi Ekspatriat</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{ route('expatriate-details.create') }}" class="btn btn-primary">Tambah Detail
+            <div class="breadcrumb-item active"><a href="{{ route('expatriate-details.create') }}" class="btn btn-primary">Tambah Divisi
                     Ekspatriat</a></div>
         </div>
     </div>
