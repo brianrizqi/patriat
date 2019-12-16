@@ -26,7 +26,7 @@
                             </tr>
                             @foreach($expatriates as $expatriate)
                                 <tr>
-                                    <td>{{$expatriate->id}}</td>
+                                    <td>E{{$expatriate->id}}</td>
                                     <td>{{$expatriate->name}}</td>
                                     <td>{{$expatriate->address}}</td>
                                     <td>{{$expatriate->email}}</td>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Division;
 use App\DivisionDetail;
+use App\Expatriate;
+use App\ExpatriateDetail;
 use Illuminate\Http\Request;
 
 class SchedulingController extends Controller
@@ -15,23 +17,36 @@ class SchedulingController extends Controller
      */
     public function index()
     {
-        $detail = DivisionDetail::all();
         $divisions = Division::all();
-        $data = array();
+        $detail = array();
+        $matrix = array();
+        $expatriates = Expatriate::all();
+
+        foreach ($divisions as $i => $division) {
+            foreach ($expatriates as $j => $expatriate) {
+                if (ExpatriateDetail::where('expatriate_id', $expatriate->id)
+                        ->where('division_id', $division->id)->first() != null) {
+                    $detail[$i][$j] = 1;
+                } else {
+                    $detail[$i][$j] = 0;
+                }
+            }
+        }
+
         foreach ($divisions as $i => $division_a) {
             foreach ($divisions as $j => $division_b) {
                 if (DivisionDetail::where('division_a', $division_a->id)
                         ->where('division_b', $division_b->id)->first() != null) {
-                    $data[$i][$j] = 1;
+                    $matrix[$i][$j] = 1;
                 } else if (DivisionDetail::where('division_b', $division_a->id)
                         ->where('division_a', $division_b->id)->first() != null) {
-                    $data[$i][$j] = 1;
+                    $matrix[$i][$j] = 1;
                 } else {
-                    $data[$i][$j] = 0;
+                    $matrix[$i][$j] = 0;
                 }
             }
         }
-        return view('scheduling',compact('data'));
+        return view('scheduling', compact('matrix','detail'));
     }
 
     /**

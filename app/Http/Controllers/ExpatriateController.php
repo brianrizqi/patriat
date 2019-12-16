@@ -36,12 +36,13 @@ class ExpatriateController extends Controller
      */
     public function store(Request $request)
     {
+        $id = Expatriate::latest()->first();
         $expatriate = new Expatriate();
         $expatriate->name = $request->name;
         $expatriate->address = $request->address;
         $expatriate->gender = $request->gender;
-        $expatriate->email = $request->email;
         $expatriate->phone = $request->phone;
+        $expatriate->email = "expatriat" . ($id->id + 1) . "@gmail.com";
         $expatriate->save();
         return redirect()->route('expatriate');
     }

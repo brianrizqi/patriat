@@ -44,7 +44,7 @@ class ExpatriateDetailController extends Controller
         $detail->division_id = $request->division;
         $detail->expatriate_id = $request->expatriate;
         $detail->save();
-        return redirect()->route('expatriate-details');
+        return redirect()->route('expatriate-details.create');
     }
 
     /**
