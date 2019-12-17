@@ -21,6 +21,14 @@ class SchedulingController extends Controller
         $detail = array();
         $matrix = array();
         $expatriates = Expatriate::all();
+        $expatriate_details = array();
+
+        foreach ($divisions as $i => $division) {
+            $details = ExpatriateDetail::where('division_id', $division->id)->get();
+            foreach ($details as $j => $item) {
+                $expatriate_details[$i][$j] = $item->expatriate_id;
+            }
+        }
 
         foreach ($divisions as $i => $division) {
             foreach ($expatriates as $j => $expatriate) {
