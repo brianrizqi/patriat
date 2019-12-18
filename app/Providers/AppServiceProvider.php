@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 
 class AppServiceProvider extends ServiceProvider
 {
