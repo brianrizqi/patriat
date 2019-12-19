@@ -30,7 +30,7 @@
                                     <td>D0{{$division->division_b}}</td>
                                     <td>{{$division->divisionDetails_b->name}}</td>
                                     <td>
-                                        <a href="{{ route('division.edit',['id'=>$division->id]) }}"
+                                        <a href="{{ route('division-details.edit',['id'=>$division->id]) }}"
                                            class="btn btn-primary">
                                             <span>
                                                 <i class="fa fa-edit"></i>

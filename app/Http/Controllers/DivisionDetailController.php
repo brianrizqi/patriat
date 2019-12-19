@@ -64,7 +64,9 @@ class DivisionDetailController extends Controller
      */
     public function edit($id)
     {
-        //
+        $detail = DivisionDetail::find($id);
+        $divisions = Division::all();
+        return view('edit_division_details', compact('detail', 'divisions'));
     }
 
     /**
@@ -76,7 +78,11 @@ class DivisionDetailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $detail = DivisionDetail::find($id);
+        $detail->division_a = $request->division_a;
+        $detail->division_b = $request->division_b;
+        $detail->save();
+        return redirect()->route('division-details');
     }
 
     /**
@@ -85,8 +91,10 @@ class DivisionDetailController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $detail = DivisionDetail::find($request->id);
+        $detail->delete();
+        return redirect()->route('division-details');
     }
 }

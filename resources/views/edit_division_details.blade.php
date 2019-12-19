@@ -1,11 +1,8 @@
 @extends('layouts.app')
 @section('content')
     <div class="section-header">
-        <h1>Ubah Ekspatriat</h1>
+        <h1>Ubah Detail Divisi</h1>
         <div class="section-header-breadcrumb">
-            {{--            <div class="breadcrumb-item active"><a href="/">Dashboard</a></div>--}}
-            {{--            <div class="breadcrumb-item active"><a href="/">Plant</a></div>--}}
-            {{--            <div class="breadcrumb-item">Create</div>--}}
         </div>
     </div>
     <div class="section-body">
@@ -15,14 +12,12 @@
                     <form>
                         <div class="card-body">
                             <div class="form-group row mb-4">
-                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama</label>
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Divisi</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <select name="expatriate" class="form-control" id="expatriate">
-                                        @foreach($expatriates as $expatriate)
-                                            <option
-                                                value="{{ $expatriate->id }}" {{ $expatriate->id == $detail->expatriate_id ? "selected" : "" }}>
-                                                {{ $expatriate->name }}
-                                            </option>
+                                    <select name="division_a" class="form-control" id="division_a">
+                                        @foreach($divisions as $division)
+                                            <option {{ $division->id == $detail->division_a ? "selected" : "" }}
+                                                    value="{{ $division->id }}">{{ $division->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -30,10 +25,10 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Divisi</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <select name="division" class="form-control" id="division">
+                                    <select name="division_b" class="form-control" id="division_b">
                                         @foreach($divisions as $division)
-                                            <option
-                                                value="{{ $division->id }}" {{ $division->id == $detail->division_id ? "selected" : "" }}>{{ $division->name }}</option>
+                                            <option {{ $division->id == $detail->division_b ? "selected" : "" }}
+                                                    value="{{ $division->id }}">{{ $division->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -56,18 +51,18 @@
     </div>
     <script type="text/javascript">
         function update() {
-            var expatriate = $('#expatriate').find(':selected').val();
-            var division = $('#division').find(':selected').val();
+            var division_a = $('#division_a').find(':selected').val();
+            var division_b = $('#division_b').find(':selected').val();
             $.ajax({
                 type: 'POST',
-                url: '{{ route('expatriate-details.update',['id'=>$detail->id])}}',
+                url: '{{ route('division-details.update',['id'=>$detail->id])}}',
                 data: {
-                    'expatriate': expatriate,
-                    'division': division,
+                    'division_a': division_a,
+                    'division_b': division_b,
                     '_token': '{{ csrf_token() }}',
                 },
                 success: function () {
-                    window.location.href = '{{ route('expatriate-details') }}';
+                    window.location.href = '{{ route('division-details') }}';
                     return false;
                 }
             })
