@@ -29,6 +29,42 @@ class SchedulingController extends Controller
                 $expatriate_details[$i][$j] = $item->expatriate_id;
             }
         }
+        $difference = array();
+        foreach ($expatriate_details as $i => $a) {
+            foreach ($expatriate_details as $j => $b) {
+                $aa = 0;
+                $bb = 0;
+                foreach ($expatriate_details[0] as $k => $c) {
+                    foreach ($expatriate_details[0] as $l => $d) {
+                        if ($expatriate_details[$i][$k] == $expatriate_details[$j][$l]) {
+                            $difference[$i][$j] = $aa;
+                            $aa += 1;
+                        } else {
+                            $difference[$i][$j] = $bb;
+                            $bb += 1;
+                        }
+                    }
+                }
+            }
+        }
+        $dif = array();
+        foreach ($difference as $i => $item) {
+            foreach ($difference[$i] as $j => $item) {
+                if ($difference[$i][$j] == 24)
+                    $dif[$i][$j] = "tidak ada hubungan";
+                else
+                    $dif[$i][$j] = "ada hubungan";
+            }
+        }
+        $color = array();
+        foreach ($dif as $i => $item) {
+            foreach ($dif as $j => $item) {
+                if ($dif[$i][$i] != $dif[$i][$j]) {
+                    
+                }
+            }
+        }
+        return response()->json($dif);
 
         foreach ($divisions as $i => $division) {
             foreach ($expatriates as $j => $expatriate) {
