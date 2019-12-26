@@ -64,7 +64,7 @@ class SchedulingController extends Controller
                 }
             }
         }
-        return response()->json($dif);
+//        return response()->json($dif);
 
         foreach ($divisions as $i => $division) {
             foreach ($expatriates as $j => $expatriate) {
