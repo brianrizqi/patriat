@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Expatriate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ExpatriateController extends Controller
 {
@@ -41,6 +42,8 @@ class ExpatriateController extends Controller
         $expatriate->name = $request->name;
         $expatriate->address = $request->address;
         $expatriate->gender = $request->gender;
+        $expatriate->username = $request->username;
+        $expatriate->password = $request->password;
         $expatriate->phone = $request->phone;
         $expatriate->email = "expatriat" . ($id->id + 1) . "@gmail.com";
         $expatriate->save();
@@ -84,6 +87,8 @@ class ExpatriateController extends Controller
         $expatriate->address = $request->address;
         $expatriate->gender = $request->gender;
         $expatriate->email = $request->email;
+        $expatriate->username = $request->username;
+        $expatriate->password = $request->password;
         $expatriate->phone = $request->phone;
         $expatriate->save();
         return redirect()->route('expatriate');
@@ -109,7 +114,15 @@ class ExpatriateController extends Controller
 
     public function login(Request $request)
     {
-
+        $expatriate = Expatriate::where([
+            ['username', $request->username],
+            ['password', $request->password]
+        ])->first();
+        if (is_null($expatriate)) {
+            return redirect()->back()->withErrors(['Username / Password salah', 'The Message']);
+        } else {
+            return;
+        }
     }
 
     public function logout()

@@ -38,6 +38,20 @@
                                 </div>
                             </div>
                             <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Username</label>
+                                <div class="col-sm-12 col-md-7">
+                                    <input type="text" class="form-control" name="username" id="username"
+                                           value="{{ $expatriate->username }}">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Password</label>
+                                <div class="col-sm-12 col-md-7">
+                                    <input type="password" class="form-control" name="password" id="password"
+                                           value="">
+                                </div>
+                            </div>
+                            <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">No Telepon</label>
                                 <div class="col-sm-12 col-md-7">
                                     <input type="number" class="form-control" name="phone" id="phone"
@@ -82,6 +96,8 @@
             var address = $('#address').val();
             var email = $('#email').val();
             var phone = $('#phone').val();
+            var username = $('#username').val();
+            var password = $('#password').val();
             var gender = $('#gender').find(':selected').val();
             $.ajax({
                 type: 'POST',
@@ -91,6 +107,8 @@
                     'address': address,
                     'email': email,
                     'phone': phone,
+                    'username': username,
+                    'password': password,
                     'gender': gender,
                     '_token': '{{ csrf_token() }}',
                 },

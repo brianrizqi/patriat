@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Login &mdash; Stisla</title>
+    <title>Login &mdash; Expatriate</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -31,17 +31,20 @@
                     </div>
 
                     <div class="card card-primary">
-                        <div class="card-header"><h4>Login</h4></div>
-
+                        <div class="card-header">
+                            <h4>Login</h4>
+                        </div>
+                        @if($errors->any())
+                            <div class="card-header">
+                                <h4 style="color: red">{{$errors->first()}}</h4>
+                            </div>
+                        @endif
                         <div class="card-body">
-                            <form method="POST" action="#">
+                            <form method="POST" action="/login">
                                 <div class="form-group">
                                     <label for="email">Username</label>
-                                    <input id="username" type="text" class="form-control" name="email" tabindex="1"
+                                    <input id="username" type="text" class="form-control" name="username" tabindex="1"
                                            required autofocus>
-                                    <div class="invalid-feedback">
-                                        Please fill in your email
-                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -57,6 +60,7 @@
                                         Login
                                     </button>
                                 </div>
+                                @csrf
                             </form>
                         </div>
                     </div>
