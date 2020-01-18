@@ -18,7 +18,7 @@
 //Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('dashboard');
-
+Route::get('/login','ExpatriateController@getLogin');
 
 Route::get('/division', 'DivisionController@index')->name('division');
 Route::get('/division/create', 'DivisionController@create')->name('division.create');

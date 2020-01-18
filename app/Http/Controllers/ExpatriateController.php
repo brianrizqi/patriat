@@ -101,4 +101,19 @@ class ExpatriateController extends Controller
         $expatriate->delete();
         return redirect()->route('expatriate');
     }
+
+    public function getLogin()
+    {
+        return view('member.login');
+    }
+
+    public function login(Request $request)
+    {
+
+    }
+
+    public function logout()
+    {
+
+    }
 }
