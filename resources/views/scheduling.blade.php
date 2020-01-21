@@ -3,6 +3,13 @@
     <div class="section-header">
         <h1>Penjadwalan Ekspatriat</h1>
         <div class="section-header-breadcrumb">
+            <select id="select-periode" class="form-control float-right">
+                <option disabled selected>Periode</option>
+                @foreach($periodes as $item)
+                    <option {{ request()->get('periode') == $item->id ? "selected" : "" }}
+                            value="{{ $item->id }}">{{ $item->month . ' ' . $item->year }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
     <div class="row">
@@ -181,3 +188,13 @@
         </div>
     </div>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#select-periode').on('change', function () {
+            var sort = $(this).val();
+            var url = window.location.href.split('?')[0];
+            document.location = url + "?periode=" + sort;
+        })
+    });
+</script>

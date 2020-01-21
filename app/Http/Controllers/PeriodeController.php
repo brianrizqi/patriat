@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Division;
-use App\Expatriate;
-use App\ExpatriateDetail;
 use App\Periode;
 use Illuminate\Http\Request;
 
-class ExpatriateDetailController extends Controller
+class PeriodeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +14,8 @@ class ExpatriateDetailController extends Controller
      */
     public function index()
     {
-        $details = ExpatriateDetail::paginate(10);
-        return view('expatriate_details', compact('details'));
+        $periode = Periode::all();
+        return view('periode', compact('periode'));
     }
 
     /**
@@ -28,10 +25,7 @@ class ExpatriateDetailController extends Controller
      */
     public function create()
     {
-        $expatriates = Expatriate::all();
-        $divisions = Division::all();
-        $periode = Periode::all();
-        return view('create_expatriate_details', compact('divisions', 'expatriates', 'periode'));
+        return view('create_periode');
     }
 
     /**
@@ -42,11 +36,11 @@ class ExpatriateDetailController extends Controller
      */
     public function store(Request $request)
     {
-        $detail = new  ExpatriateDetail();
-        $detail->division_id = $request->division;
-        $detail->expatriate_id = $request->expatriate;
-        $detail->save();
-        return redirect()->route('expatriate-details.create');
+        $periode = new Periode();
+        $periode->month = $request->month;
+        $periode->year = $request->year;
+        $periode->save();
+        return redirect()->route('periode');
     }
 
     /**
@@ -68,10 +62,7 @@ class ExpatriateDetailController extends Controller
      */
     public function edit($id)
     {
-        $detail = ExpatriateDetail::find($id);
-        $expatriates = Expatriate::all();
-        $divisions = Division::all();
-        return view('edit_expatriate_details', compact('detail', 'expatriates', 'divisions'));
+        //
     }
 
     /**
@@ -83,11 +74,7 @@ class ExpatriateDetailController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $detail = ExpatriateDetail::find($id);
-        $detail->division_id = $request->division;
-        $detail->expatriate_id = $request->expatriate;
-        $detail->save();
-        return redirect()->route('expatriate-details');
+        //
     }
 
     /**
@@ -96,10 +83,8 @@ class ExpatriateDetailController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        $detail = ExpatriateDetail::find($request->id);
-        $detail->delete();
-        return redirect()->route('expatriate-details');
+        //
     }
 }

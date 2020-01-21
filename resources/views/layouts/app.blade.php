@@ -82,6 +82,10 @@
                         <a href="{{ route('place') }}" class="nav-link"><i
                                 class="fas fa-building"></i><span>Data Tempat</span></a>
                     </li>
+                    <li class="{{ Request::is('periode') ?  'active' : '' }}">
+                        <a href="{{ route('periode') }}" class="nav-link"><i
+                                class="fas fa-building"></i><span>Periode</span></a>
+                    </li>
                     <li class="{{ Request::is('scheduling') ?  'active' : '' }}">
                         <a class="nav-link" href="{{ route('scheduling') }}"><i class="far fa-calendar-check"></i>
                             <span>Penjadwalan</span>
@@ -119,6 +123,6 @@
 <script src="{{asset('js/custom.js')}}"></script>
 
 <!-- Page Specific JS File -->
-<script src="{{asset('js/page/index.js')}}"></script>
+{{--<script src="{{asset('js/page/index.js')}}"></script>--}}
 </body>
 </html>

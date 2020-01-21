@@ -6,6 +6,7 @@ use App\Division;
 use App\DivisionDetail;
 use App\Expatriate;
 use App\ExpatriateDetail;
+use App\Periode;
 use Illuminate\Http\Request;
 
 class SchedulingController extends Controller
@@ -15,8 +16,14 @@ class SchedulingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('periode')) {
+            $periode = $request->periode;
+        } else {
+            $periode = 1;
+        }
+        $periodes = Periode::all();
         $divisions = Division::all();
         $detail = array();
         $matrix = array();
@@ -60,7 +67,7 @@ class SchedulingController extends Controller
         foreach ($dif as $i => $item) {
             foreach ($dif as $j => $item) {
                 if ($dif[$i][$i] != $dif[$i][$j]) {
-                    
+
                 }
             }
         }
@@ -69,7 +76,9 @@ class SchedulingController extends Controller
         foreach ($divisions as $i => $division) {
             foreach ($expatriates as $j => $expatriate) {
                 if (ExpatriateDetail::where('expatriate_id', $expatriate->id)
-                        ->where('division_id', $division->id)->first() != null) {
+                        ->where('division_id', $division->id)
+                        ->where('periode_id', $periode)
+                        ->first() != null) {
                     $detail[$i][$j] = 1;
                 } else {
                     $detail[$i][$j] = 0;
@@ -90,7 +99,7 @@ class SchedulingController extends Controller
                 }
             }
         }
-        return view('scheduling', compact('matrix', 'detail'));
+        return view('scheduling', compact('matrix', 'detail', 'periodes'));
     }
 
     /**
