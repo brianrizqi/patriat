@@ -63,16 +63,6 @@ class SchedulingController extends Controller
                     $dif[$i][$j] = "ada hubungan";
             }
         }
-        $color = array();
-        foreach ($dif as $i => $item) {
-            foreach ($dif as $j => $item) {
-                if ($dif[$i][$i] != $dif[$i][$j]) {
-
-                }
-            }
-        }
-//        return response()->json($dif);
-
         foreach ($divisions as $i => $division) {
             foreach ($expatriates as $j => $expatriate) {
                 if (ExpatriateDetail::where('expatriate_id', $expatriate->id)
@@ -85,21 +75,64 @@ class SchedulingController extends Controller
                 }
             }
         }
-
+        $temp = array();
         foreach ($divisions as $i => $division_a) {
+            $no = 0;
             foreach ($divisions as $j => $division_b) {
                 if (DivisionDetail::where('division_a', $division_a->id)
                         ->where('division_b', $division_b->id)->first() != null) {
                     $matrix[$i][$j] = 1;
+                    $temp[$i + 1][$no] = $division_b->id;
+                    $no++;
                 } else if (DivisionDetail::where('division_b', $division_a->id)
                         ->where('division_a', $division_b->id)->first() != null) {
                     $matrix[$i][$j] = 1;
+                    $temp[$i + 1][$no] = $division_b->id;
+                    $no++;
                 } else {
                     $matrix[$i][$j] = 0;
                 }
+                $temp[$i + 1]['id'] = $division_a->id;
             }
         }
-        return view('scheduling', compact('matrix', 'detail', 'periodes'));
+        $filter = array();
+        for ($i = 0; $i < count($matrix); $i++) {
+            $jumlah = 0;
+            for ($j = 0; $j < count($matrix); $j++) {
+                $jumlah += $matrix[$i][$j];
+            }
+            $temp[$i + 1]['jumlah'] = $jumlah;
+            $filter[$i]['divisi'] = \App\Division::find($i + 1)->name;
+            $filter[$i]['jumlah'] = $jumlah;
+            $filter[$i]['id'] = $i + 1;
+        }
+
+
+        usort($filter, function ($a, $b) {
+            if ($a['jumlah'] == $b['jumlah']) return 0;
+            return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
+        });
+
+        usort($temp, function ($a, $b) {
+            if ($a['jumlah'] == $b['jumlah']) return 0;
+            return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
+        });
+        $colors = ['yellow', 'red', 'green', 'blue'];
+        $temp_color = 0;
+        $temp[0]['color'] = $colors[$temp_color];
+        for ($i = 1; $i < count($temp); $i++) {
+            for ($j = 0; $j < $temp[$i]['jumlah']; $j++) {
+                for ($k = 0; $k < $i; $k++) {
+                    if ($temp[$i][$j] != $temp[$k]['id']) {
+                        $temp[$i]['color'] = $temp_color;
+                    } else {
+                        $temp[$i]['color'] = 'a';
+                    }
+                }
+            }
+        }
+        return $temp;
+        return view('scheduling', compact('matrix', 'detail', 'periodes', 'filter','temp'));
     }
 
     /**

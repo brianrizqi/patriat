@@ -26,13 +26,11 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tahun</label>
                                 <div class="col-sm-12 col-md-7">
+                                    @php $year = \Carbon\Carbon::now()->format('Y'); @endphp
                                     <select class="form-control" name="year" id="year">
-                                        <option>2019</option>
-                                        <option>2020</option>
-                                        <option>2021</option>
-                                        <option>2022</option>
-                                        <option>2023</option>
-                                        <option>2024</option>
+                                        @for($i = $year - 1; $i < $year + 3; $i++)
+                                            <option {{ $i == \Carbon\Carbon::now()->format('Y') ? 'selected' : '' }}>{{ $i }}</option>
+                                        @endfor
                                     </select>
                                 </div>
                             </div>

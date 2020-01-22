@@ -129,35 +129,12 @@
                                 <th>Divisi</th>
                                 <th>Jumlah</th>
                             </tr>
-                            @php
-                                $filter = array();
-                            @endphp
-                            @for ($i = 0; $i < count($matrix); $i++)
-                                @php
-                                    $jumlah = 0;
-                                @endphp
-                                @for ($j = 0; $j < count($matrix); $j++)
-                                    @php
-                                        $jumlah += $matrix[$i][$j];
-                                    @endphp
-                                @endfor
-                                @php
-                                    $filter[$i]['divisi'] = \App\Division::find($i+1)->name;
-                                    $filter[$i]['jumlah'] = $jumlah;
-                                @endphp
-                            @endfor
-                            @php
-                                usort($filter, function ($a, $b) {
-            if ($a['jumlah'] == $b['jumlah']) return 0;
-            return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
-        });
-                            @endphp
-                            @for ($i = 0; $i < count($matrix); $i++)
+                            @foreach ($filter as $item)
                                 <tr>
-                                    <td>{{ $filter[$i]['divisi'] }}</td>
-                                    <td>{{ $filter[$i]['jumlah'] }}</td>
+                                    <td>{{ $item['divisi'] }}</td>
+                                    <td>{{ $item['jumlah'] }}</td>
                                 </tr>
-                            @endfor
+                            @endforeach
                         </table>
                     </div>
                 </div>
@@ -175,12 +152,12 @@
                                 <th>Index</th>
                                 <th>Divisi</th>
                             </tr>
-                            @for ($i = 0; $i < count($matrix); $i++)
+                            @foreach ($filter as $i => $item)
                                 <tr>
-                                    <th>{{ $i + 1 }}</th>
-                                    <td>{{ $filter[$i]['divisi'] }}</td>
+                                    <td>{{ $i + 1 }}</td>
+                                    <td>{{ $item['divisi'] }}</td>
                                 </tr>
-                            @endfor
+                            @endforeach
                         </table>
                     </div>
                 </div>
