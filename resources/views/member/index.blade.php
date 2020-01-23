@@ -14,12 +14,14 @@
                         <table class="table table-striped table-md">
                             <tr>
                                 <th>Divisi</th>
+                                <th>Waktu</th>
                                 <th>Periode</th>
                                 <th>Tempat</th>
                             </tr>
                             @foreach($schedulle as $item)
                                 <tr>
                                     <td>{{ $item['divisi'] }}</td>
+                                    <td>{{ $item['hari'] }}</td>
                                     <td>{{ $item['periode'] }}</td>
                                     <td>{{ $item['tempat'] }}</td>
                                 </tr>

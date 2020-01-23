@@ -17,12 +17,13 @@ class MemberController extends Controller
             $schedulle = array();
             foreach ($details as $i => $detail) {
                 $item = Scheduling::where('division_id', $detail->division_id)->first();
-                if (is_null($item)){
+                if (is_null($item)) {
                     break;
                 }
                 $schedulle[$i]['divisi'] = $detail->division->name;
                 $schedulle[$i]['periode'] = $item->periode->month . ' ' . $item->periode->year;
                 $schedulle[$i]['tempat'] = $item->place->name;
+                $schedulle[$i]['hari'] = $item->day;
             }
             return view('member.index', compact('schedulle'));
         } else {

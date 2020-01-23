@@ -120,7 +120,7 @@ class SchedulingController extends Controller
             if ($a['jumlah'] == $b['jumlah']) return 0;
             return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
         });
-        $colors = ['yellow', 'yellow', 'red', 'green', 'green', 'red', 'blue'];
+        $colors = ['Kuning', 'Kuning', 'Merah', 'Hijau', 'Hijau', 'Merah', 'Biru'];
 //        $temp_color = array();
         for ($i = 0; $i < count($matrix); $i++) {
             $temp[$i]['color'] = $colors[$i];
@@ -258,7 +258,7 @@ class SchedulingController extends Controller
                 if ($a['jumlah'] == $b['jumlah']) return 0;
                 return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
             });
-            $colors = ['yellow', 'yellow', 'red', 'green', 'green', 'red', 'blue'];
+            $colors = ['Kuning', 'Kuning', 'Merah', 'Hijau', 'Hijau', 'Merah', 'Biru'];
 //        $temp_color = array();
             for ($i = 0; $i < count($matrix); $i++) {
                 $temp[$i]['color'] = $colors[$i];
@@ -269,14 +269,14 @@ class SchedulingController extends Controller
                 $scheduling->division_id = $temp[$i]['id'];
                 $scheduling->place_id = Place::all()->random()->id;
                 $scheduling->periode_id = $periode;
-                if ($temp[$i]['color'] == 'yellow') {
-                    $scheduling->day = 'Senin';
-                } else if ($temp[$i]['color'] == 'red') {
-                    $scheduling->day = 'Selasa';
-                } else if ($temp[$i]['color'] == 'green') {
-                    $scheduling->day = 'Rabu';
+                if ($temp[$i]['color'] == 'Kuning') {
+                    $scheduling->day = 'Minggu ke 1';
+                } else if ($temp[$i]['color'] == 'Merah') {
+                    $scheduling->day = 'Minggu ke 2';
+                } else if ($temp[$i]['color'] == 'Hijau') {
+                    $scheduling->day = 'Minggu ke 3';
                 } else {
-                    $scheduling->day = 'Kamis';
+                    $scheduling->day = 'Minggu ke 4';
                 }
                 $scheduling->save();
             }

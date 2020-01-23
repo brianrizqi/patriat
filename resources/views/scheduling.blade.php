@@ -187,7 +187,7 @@
                         <table class="table table-striped table-md">
                             <tr>
                                 <th>Divisi</th>
-                                <th>Color</th>
+                                <th>Warna</th>
                             </tr>
                             @foreach ($temp as $i => $item)
                                 <tr>
