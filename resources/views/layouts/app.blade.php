@@ -83,13 +83,16 @@
                                 class="fas fa-building"></i><span>Data Tempat</span></a>
                     </li>
                     <li class="{{ Request::is('periode') ?  'active' : '' }}">
-                        <a href="{{ route('periode') }}" class="nav-link"><i
-                                class="fas fa-building"></i><span>Periode</span></a>
+                        <a href="{{ route('periode') }}" class="nav-link"><i class="far fa-calendar-check"></i>
+                            <span>Periode</span></a>
                     </li>
-                    <li class="{{ Request::is('scheduling') ?  'active' : '' }}">
-                        <a class="nav-link" href="{{ route('scheduling') }}"><i class="far fa-calendar-check"></i>
-                            <span>Penjadwalan</span>
-                        </a>
+                    <li class="nav-item dropdown {{ Request::is('scheduling') ?  'active' : '' || Request::is('division-details') ?  'active' : '' }}">
+                        <a href="" class="nav-link has-dropdown">
+                            <i class="far fa-calendar-check"></i><span>Penjadwalan</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" href="{{ route('scheduling') }}">Buat Jadwal</a></li>
+                            <li><a class="nav-link" href="{{ route('scheduling.show') }}">Jadwal</a></li>
+                        </ul>
                     </li>
                 </ul>
             </aside>

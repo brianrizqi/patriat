@@ -290,9 +290,16 @@ class SchedulingController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        if ($request->has('periode')) {
+            $periode = $request->periode;
+        } else {
+            $periode = 1;
+        }
+        $schedules = Scheduling::where('periode_id', $periode)->get();
+        $periodes = Periode::all();
+        return view('show_schedule', compact('schedules', 'periodes'));
     }
 
     /**

@@ -58,6 +58,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/division-details/delete', 'DivisionDetailController@destroy')->name('division-details.destroy');
 
     Route::get('/scheduling', 'SchedulingController@index')->name('scheduling');
+    Route::get('/scheduling/show', 'SchedulingController@show')->name('scheduling.show');
     Route::post('/scheduling', 'SchedulingController@store');
 
     Route::get('/periode', 'PeriodeController@index')->name('periode');
