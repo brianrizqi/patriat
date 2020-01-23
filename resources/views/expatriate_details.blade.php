@@ -20,6 +20,7 @@
                                 <th>ID Ekspatriat</th>
                                 <th>Nama</th>
                                 <th>Divisi</th>
+				<th>Periode</th>
                                 <th>Action</th>
                             </tr>
                             @foreach($details as $detail)
@@ -27,6 +28,7 @@
                                     <td>E{{$detail->expatriate_id}}</td>
                                     <td>{{$detail->expatriate->name}}</td>
                                     <td>{{$detail->division->name}}</td>
+				    <td>{{$detail->periode->month . ' ' . $detail->periode->year}}</td>
                                     <td>
                                         <a href="{{ route('expatriate-details.edit',['id'=>$detail->id]) }}"
                                            class="btn btn-primary">
