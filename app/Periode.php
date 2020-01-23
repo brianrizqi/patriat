@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  * @property ExpatriateDetail[] $expatriateDetails
+ * @property Scheduling[] $schedulings
  */
 class Periode extends Model
 {
@@ -25,5 +26,13 @@ class Periode extends Model
     public function expatriateDetails()
     {
         return $this->hasMany('App\ExpatriateDetail');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function schedulings()
+    {
+        return $this->hasMany('App\Scheduling');
     }
 }

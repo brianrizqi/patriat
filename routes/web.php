@@ -19,6 +19,7 @@
 Route::get('/', 'ExpatriateController@getLogin');
 Route::get('/login', 'ExpatriateController@getLogin');
 Route::post('/login', 'ExpatriateController@login');
+Route::get('/logout', 'ExpatriateController@logout');
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'HomeController@index')->name('dashboard');
     Route::get('/division', 'DivisionController@index')->name('division');
@@ -57,6 +58,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/division-details/delete', 'DivisionDetailController@destroy')->name('division-details.destroy');
 
     Route::get('/scheduling', 'SchedulingController@index')->name('scheduling');
+    Route::post('/scheduling', 'SchedulingController@store');
 
     Route::get('/periode', 'PeriodeController@index')->name('periode');
     Route::get('/periode/create', 'PeriodeController@create')->name('periode.create');

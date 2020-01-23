@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin</title>
+    <title>Expatriate</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
@@ -34,14 +34,11 @@
             <ul class="navbar-nav navbar-right">
                 <li class="dropdown"><a href="#" data-toggle="dropdown"
                                         class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                        <div class="d-sm-none d-lg-inline-block">Hi, Admin</div>
+                        <div class="d-sm-none d-lg-inline-block">
+                            Hi, {{ \Illuminate\Support\Facades\Session::get('name') }}</div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="features-profile.html" class="dropdown-item has-icon">
-                            <i class="far fa-user"></i> Profile
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item has-icon text-danger">
+                        <a href="/logout" class="dropdown-item has-icon text-danger">
                             <i class="fas fa-sign-out-alt"></i> Logout
                         </a>
                     </div>
@@ -58,29 +55,9 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li class="menu-header" style="color: white">.</li>
-                    <li class="nav-item dropdown {{ Request::is('expatriate') ?  'active' : '' || Request::is('expatriate-details') ?  'active' : ''}}">
-                        <a href="#" class="nav-link has-dropdown"><i
-                                class="fas fa-child"></i><span>Eksaptriat</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="{{ route('expatriate') }}">Data Ekspatriat</a></li>
-                            <li><a class="nav-link" href="{{ route('expatriate-details') }}">Divisi Ekspatriat</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown {{ Request::is('division') ?  'active' : '' || Request::is('division-details') ?  'active' : '' }}">
-                        <a href="" class="nav-link has-dropdown"><i
-                                class="fas fa-dice-d6"></i><span>Divisi</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="{{ route('division') }}">Divisi</a></li>
-                            <li><a class="nav-link" href="{{ route('division-details') }}">Detail Divisi</a></li>
-                        </ul>
-                    </li>
-                    <li class="{{ Request::is('place') ?  'active' : '' }}">
-                        <a href="{{ route('place') }}" class="nav-link"><i
-                                class="fas fa-building"></i><span>Data Tempat</span></a>
-                    </li>
-                    <li class="{{ Request::is('scheduling') ?  'active' : '' }}">
-                        <a class="nav-link" href="{{ route('scheduling') }}"><i class="far fa-calendar-check"></i>
-                            <span>Penjadwalan</span>
+                    <li class="active">
+                        <a class="nav-link" href="/member/index"><i class="far fa-calendar-check"></i>
+                            <span>Dashboard</span>
                         </a>
                     </li>
                 </ul>

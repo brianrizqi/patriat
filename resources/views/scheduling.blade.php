@@ -2,14 +2,28 @@
 @section('content')
     <div class="section-header">
         <h1>Penjadwalan Ekspatriat</h1>
+        @if($errors->any())
+            <div style="margin-top: 15px; margin-left: 10px">
+                <h5 style="color: red">{{$errors->first()}}</h5>
+            </div>
+        @endif
         <div class="section-header-breadcrumb">
-            <select id="select-periode" class="form-control float-right">
-                <option disabled selected>Periode</option>
-                @foreach($periodes as $item)
-                    <option {{ request()->get('periode') == $item->id ? "selected" : "" }}
-                            value="{{ $item->id }}">{{ $item->month . ' ' . $item->year }}</option>
-                @endforeach
-            </select>
+            <form action="/admin/scheduling" method="POST">
+                <div class="input-group">
+                    <select name="periode" id="select-periode" class="form-control float-right"
+                            style="margin-right: 10px">
+                        <option disabled selected>Periode</option>
+                        @foreach($periodes as $item)
+                            <option {{ request()->get('periode') == $item->id ? "selected" : "" }}
+                                    value="{{ $item->id }}">{{ $item->month . ' ' . $item->year }}</option>
+                        @endforeach
+                    </select>
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">Jadwalkan</button>
+                    </div>
+                </div>
+                @csrf
+            </form>
         </div>
     </div>
     <div class="row">
@@ -90,7 +104,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-4 col-md-4 col-lg-4">
+        <div class="col-3 col-md-3 col-lg-3">
             <div class="card">
                 <div class="card-header">
                     <h4>Tabel Matrix Derajat</h4>
@@ -117,10 +131,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-4 col-md-4 col-lg-4">
+        <div class="col-3 col-md-3 col-lg-3">
             <div class="card">
                 <div class="card-header">
-                    <h4>Tabel Urut Matrix Derajat</h4>
+                    <h4>Tabel Urut Matrix</h4>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -140,7 +154,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-4 col-md-4 col-lg-4">
+        <div class="col-3 col-md-3 col-lg-3">
             <div class="card">
                 <div class="card-header">
                     <h4>Tabel Index</h4>
@@ -156,6 +170,29 @@
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
                                     <td>{{ $item['divisi'] }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 col-md-3 col-lg-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Tabel Pewarnaan</h4>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-md">
+                            <tr>
+                                <th>Divisi</th>
+                                <th>Color</th>
+                            </tr>
+                            @foreach ($temp as $i => $item)
+                                <tr>
+                                    <td>{{ $item['divisi'] }}</td>
+                                    <td>{{ $item['color'] }}</td>
                                 </tr>
                             @endforeach
                         </table>

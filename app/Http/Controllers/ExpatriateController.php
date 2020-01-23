@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Expatriate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class ExpatriateController extends Controller
 {
@@ -109,7 +110,11 @@ class ExpatriateController extends Controller
 
     public function getLogin()
     {
-        return view('member.login');
+        if (Session::has('expatriate_id')) {
+            return redirect('/member/index');
+        } else {
+            return view('member.login');
+        }
     }
 
     public function login(Request $request)
@@ -121,12 +126,16 @@ class ExpatriateController extends Controller
         if (is_null($expatriate)) {
             return redirect()->back()->withErrors(['Username / Password salah', 'The Message']);
         } else {
-            return;
+            Session::put('expatriate_id', $expatriate->id);
+            Session::put('name', $expatriate->name);
+            return redirect('/member/index');
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-
+        Session::forget('expatriate_id');
+        Session::forget('name');
+        return redirect('/login');
     }
 }
