@@ -3,7 +3,8 @@
     <div class="section-header">
         <h1>Divisi Ekspatriat</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="{{ route('expatriate-details.create') }}" class="btn btn-primary">Tambah Divisi
+            <div class="breadcrumb-item active"><a href="{{ route('expatriate-details.create') }}"
+                                                   class="btn btn-primary">Tambah Divisi
                     Ekspatriat</a></div>
         </div>
     </div>
@@ -20,6 +21,7 @@
                                 <th>ID Ekspatriat</th>
                                 <th>Nama</th>
                                 <th>Divisi</th>
+                                <th>Periode</th>
                                 <th>Action</th>
                             </tr>
                             @foreach($details as $detail)
@@ -27,6 +29,7 @@
                                     <td>E{{$detail->expatriate_id}}</td>
                                     <td>{{$detail->expatriate->name}}</td>
                                     <td>{{$detail->division->name}}</td>
+                                    <td>{{$detail->periode->month . ' ' . $detail->periode->year}}</td>
                                     <td>
                                         <a href="{{ route('expatriate-details.edit',['id'=>$detail->id]) }}"
                                            class="btn btn-primary">
