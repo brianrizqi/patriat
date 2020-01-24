@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="section-header">
-        <h1>Tambah Detail Divisi</h1>
+        <h1>Tambah Relasi Divisi</h1>
         <div class="section-header-breadcrumb">
         </div>
     </div>

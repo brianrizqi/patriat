@@ -42,14 +42,14 @@
                         <div class="card-body">
                             <form method="POST" action="/login">
                                 <div class="form-group">
-                                    <label for="email">Username</label>
+                                    <label for="email">Nama Pengguna</label>
                                     <input id="username" type="text" class="form-control" name="username" tabindex="1"
                                            required autofocus>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="d-block">
-                                        <label for="password" class="control-label">Password</label>
+                                        <label for="password" class="control-label">Kata Sandi</label>
                                     </div>
                                     <input id="password" type="password" class="form-control" name="password"
                                            tabindex="2" required>

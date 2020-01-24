@@ -124,7 +124,7 @@ class ExpatriateController extends Controller
             ['password', $request->password]
         ])->first();
         if (is_null($expatriate)) {
-            return redirect()->back()->withErrors(['Username / Password salah', 'The Message']);
+            return redirect()->back()->withErrors(['Nama pengguna / Kata sandi salah', 'The Message']);
         } else {
             Session::put('expatriate_id', $expatriate->id);
             Session::put('name', $expatriate->name);

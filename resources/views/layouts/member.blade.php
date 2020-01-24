@@ -57,7 +57,7 @@
                     <li class="menu-header" style="color: white">.</li>
                     <li class="active">
                         <a class="nav-link" href="/member/index"><i class="far fa-calendar-check"></i>
-                            <span>Dashboard</span>
+                            <span>Jadwal</span>
                         </a>
                     </li>
                 </ul>

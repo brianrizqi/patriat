@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+        .dot {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
     <div class="section-header">
         <h1>Penjadwalan Ekspatriat</h1>
         @if($errors->any())
@@ -104,7 +112,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-3 col-md-3 col-lg-3">
+        <div class="col-4 col-md-4 col-lg-4">
             <div class="card">
                 <div class="card-header">
                     <h4>Tabel Matrix Derajat</h4>
@@ -131,10 +139,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-3 col-md-3 col-lg-3">
+        <div class="col-4 col-md-4 col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <h4>Tabel Urut Matrix</h4>
+                    <h4>Tabel Urut Matrix Derajat</h4>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -154,7 +162,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-3 col-md-3 col-lg-3">
+        <div class="col-4 col-md-4 col-lg-4">
             <div class="card">
                 <div class="card-header">
                     <h4>Tabel Index</h4>
@@ -177,7 +185,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-3 col-md-3 col-lg-3">
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
             <div class="card">
                 <div class="card-header">
                     <h4>Tabel Pewarnaan</h4>
@@ -192,7 +202,18 @@
                             @foreach ($temp as $i => $item)
                                 <tr>
                                     <td>{{ $item['divisi'] }}</td>
-                                    <td>{{ $item['color'] }}</td>
+                                    <td>
+                                        {{ $item['color'] }}
+                                        @if($item['color']== 'Merah')
+                                            <span class="dot btn-danger"></span>
+                                        @elseif($item['color']== 'Kuning')
+                                            <span class="dot btn-warning"></span>
+                                        @elseif($item['color']== 'Hijau')
+                                            <span class="dot btn-success"></span>
+                                        @else
+                                            <span class="dot btn-primary"></span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>

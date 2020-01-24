@@ -59,6 +59,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('/scheduling', 'SchedulingController@index')->name('scheduling');
     Route::get('/scheduling/show', 'SchedulingController@show')->name('scheduling.show');
+    Route::get('/scheduling/show/{id}', 'SchedulingController@showExpatriate')->name('scheduling.show.expatriate');
     Route::post('/scheduling', 'SchedulingController@store');
 
     Route::get('/periode', 'PeriodeController@index')->name('periode');

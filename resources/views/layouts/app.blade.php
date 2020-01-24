@@ -75,7 +75,7 @@
                                 class="fas fa-dice-d6"></i><span>Divisi</span></a>
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" href="{{ route('division') }}">Divisi</a></li>
-                            <li><a class="nav-link" href="{{ route('division-details') }}">Detail Divisi</a></li>
+                            <li><a class="nav-link" href="{{ route('division-details') }}">Relasi Divisi</a></li>
                         </ul>
                     </li>
                     <li class="{{ Request::is('place') ?  'active' : '' }}">

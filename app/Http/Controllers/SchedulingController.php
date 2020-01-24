@@ -335,4 +335,10 @@ class SchedulingController extends Controller
     {
         //
     }
+
+    public function showExpatriate($id)
+    {
+        $detail = ExpatriateDetail::where('division_id', $id)->get();
+        return view('show_expatriate', compact('detail'));
+    }
 }

@@ -26,12 +26,18 @@
                                 <th>Divisi</th>
                                 <th>Gedung</th>
                                 <th>Waktu</th>
+                                <th>Action</th>
                             </tr>
                             @foreach($schedules as $schedule)
                                 <tr>
                                     <td>{{ $schedule->division->name }}</td>
                                     <td>{{ $schedule->place->name }}</td>
                                     <td>{{ $schedule->day }}</td>
+                                    <td>
+                                        <a href="{{ route('scheduling.show.expatriate',['id'=>$schedule->division_id]) }}">
+                                            <span class="btn btn-primary"><i class="fa fa-eye"></i></span>
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>

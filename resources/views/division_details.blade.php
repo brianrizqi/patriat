@@ -1,17 +1,17 @@
 @extends('layouts.app')
 @section('content')
     <div class="section-header">
-        <h1>Detail Divisi</h1>
+        <h1>Relasi Divisi</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('division-details.create') }}"
-                                                   class="btn btn-primary">Tambah Detail Divisi</a></div>
+                                                   class="btn btn-primary">Tambah Relasi Divisi</a></div>
         </div>
     </div>
     <div class="row">
         <div class="col-12 col-md-12 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Tabel Divisi</h4>
+                    <h4>Tabel Relasi Divisi</h4>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
