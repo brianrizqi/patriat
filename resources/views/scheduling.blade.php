@@ -8,13 +8,18 @@
             display: inline-block;
         }
     </style>
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
+    @if($errors->any())
+        <div class="alert alert-danger">
+            {{$errors->first()}}
+        </div>
+    @endif
     <div class="section-header">
         <h1>Penjadwalan Ekspatriat</h1>
-        @if($errors->any())
-            <div style="margin-top: 15px; margin-left: 10px">
-                <h5 style="color: red">{{$errors->first()}}</h5>
-            </div>
-        @endif
         <div class="section-header-breadcrumb">
             <form action="/admin/scheduling" method="POST">
                 <div class="input-group">

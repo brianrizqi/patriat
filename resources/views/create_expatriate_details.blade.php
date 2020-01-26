@@ -34,9 +34,10 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Periode</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <select name="division" class="form-control" id="division">
+                                    <select name="periode" class="form-control" id="periode">
                                         @foreach($periode as $item)
-                                            <option value="{{ $item->id }}">{{ $item->month . ' ' . $item->year }}</option>
+                                            <option
+                                                value="{{ $item->id }}">{{ $item->month . ' ' . $item->year }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -61,12 +62,14 @@
         function simpan() {
             var expatriate = $('#expatriate').find(':selected').val();
             var division = $('#division').find(':selected').val();
+            var periode = $('#periode').find(':selected').val();
             $.ajax({
                 type: 'POST',
                 url: '{{ route('expatriate-details.store')}}',
                 data: {
                     'expatriate': expatriate,
                     'division': division,
+                    'periode': periode,
                     '_token': '{{ csrf_token() }}',
                 },
                 success: function () {

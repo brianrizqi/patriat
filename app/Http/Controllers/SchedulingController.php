@@ -280,7 +280,7 @@ class SchedulingController extends Controller
                 }
                 $scheduling->save();
             }
-            return redirect('/admin/scheduling');
+            return redirect('/admin/scheduling')->with('message', 'Jadwal Berhasil di buat');
         }
     }
 
