@@ -14,7 +14,7 @@ class PeriodeController extends Controller
      */
     public function index()
     {
-        $periode = Periode::all();
+        $periode = Periode::orderBy('year','asc')->get();
         return view('periode', compact('periode'));
     }
 
