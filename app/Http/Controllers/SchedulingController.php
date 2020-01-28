@@ -121,9 +121,11 @@ class SchedulingController extends Controller
             return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
         });
         $colors = ['Kuning', 'Kuning', 'Merah', 'Hijau', 'Hijau', 'Merah', 'Biru'];
+        $index = ['1', '1', '2', '3', '3', '2', '4'];
 //        $temp_color = array();
         for ($i = 0; $i < count($matrix); $i++) {
             $temp[$i]['color'] = $colors[$i];
+            $temp[$i]['index'] = $index[$i];
         }
 //        for ($i = 0; $i < count($temp); $i++) {
 //            $no = 0;

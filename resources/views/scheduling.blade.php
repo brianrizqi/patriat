@@ -126,6 +126,9 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 {{--                                <th>Divisi</th>--}}
                                 {{--                                <th>Jumlah</th>--}}
                             </tr>
@@ -155,6 +158,9 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
                             <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 {{--                                <th>Divisi</th>--}}
                                 {{--                                <th>Jumlah</th>--}}
                             </tr>
@@ -196,7 +202,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 col-md-12 col-lg-12">
+        <div class="col-6 col-md-6 col-lg-6">
             <div class="card">
                 <div class="card-header">
                     <h4>Tabel Pewarnaan</h4>
@@ -222,6 +228,28 @@
                                         @else
                                             <span class="dot btn-primary"></span>
                                         @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-6 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Matriks Pewarnaan</h4>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-md">
+                            @foreach ($temp as $i => $item)
+                                <tr>
+                                    <td>[</td>
+                                    <td>{{ $item['index'] }}</td>
+                                    <td>
+                                        ]
                                     </td>
                                 </tr>
                             @endforeach
