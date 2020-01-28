@@ -126,8 +126,8 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
                             <tr>
-                                <th>Divisi</th>
-                                <th>Jumlah</th>
+                                {{--                                <th>Divisi</th>--}}
+                                {{--                                <th>Jumlah</th>--}}
                             </tr>
                             @for ($i = 0; $i < count($matrix); $i++)
                                 @php $jumlah = 0; @endphp
@@ -135,8 +135,10 @@
                                     @for ($j = 0; $j < count($matrix); $j++)
                                         @php $jumlah += $matrix[$i][$j]; @endphp
                                     @endfor
-                                    <td>{{ \App\Division::find($i+1)['name'] }}</td>
+                                    {{--                                    <td>{{ \App\Division::find($i+1)['name'] }}</td>--}}
+                                    <td>[</td>
                                     <td>{{ $jumlah }}</td>
+                                    <td>]</td>
                                 </tr>
                             @endfor
                         </table>
@@ -153,13 +155,15 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
                             <tr>
-                                <th>Divisi</th>
-                                <th>Jumlah</th>
+                                {{--                                <th>Divisi</th>--}}
+                                {{--                                <th>Jumlah</th>--}}
                             </tr>
                             @foreach ($filter as $item)
                                 <tr>
-                                    <td>{{ $item['divisi'] }}</td>
+                                    {{--                                    <td>{{ $item['divisi'] }}</td>--}}
+                                    <td>[</td>
                                     <td>{{ $item['jumlah'] }}</td>
+                                    <td>]</td>
                                 </tr>
                             @endforeach
                         </table>

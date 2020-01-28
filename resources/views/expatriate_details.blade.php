@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <div class="section-header">
-        <h1>Divisi Ekspatriat</h1>
+        <h1>Penugasan Ekspatriat</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('expatriate-details.create') }}"
-                                                   class="btn btn-primary">Tambah Divisi
+                                                   class="btn btn-primary">Tambah Penugasan
                     Ekspatriat</a></div>
         </div>
     </div>
@@ -12,7 +12,7 @@
         <div class="col-12 col-md-12 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Tabel Detail Ekspatriat</h4>
+                    <h4>Tabel Penugasan Ekspatriat</h4>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Division;
 use App\DivisionDetail;
+use App\Expatriate;
+use App\ExpatriateDetail;
 use Illuminate\Http\Request;
 
 class DivisionDetailController extends Controller
@@ -15,8 +17,12 @@ class DivisionDetailController extends Controller
      */
     public function index()
     {
+        $expatriates = Expatriate::all();
+        foreach ($expatriates as $i => $expatriate) {
+            $detail[$i] = ExpatriateDetail::where('expatriate_id', $expatriate->id)->get();
+        }
         $details = DivisionDetail::paginate(10);
-        return view('division_details', compact('details'));
+        return view('division_details', compact('details', 'detail'));
     }
 
     /**

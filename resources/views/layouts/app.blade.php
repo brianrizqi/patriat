@@ -67,7 +67,7 @@
                                 class="fas fa-child"></i><span>Eksaptriat</span></a>
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" href="{{ route('expatriate') }}">Data Ekspatriat</a></li>
-                            <li><a class="nav-link" href="{{ route('expatriate-details') }}">Divisi Ekspatriat</a></li>
+                            <li><a class="nav-link" href="{{ route('expatriate-details') }}">Penugasan Ekspatriat</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown {{ Request::is('division') ?  'active' : '' || Request::is('division-details') ?  'active' : '' }}">
