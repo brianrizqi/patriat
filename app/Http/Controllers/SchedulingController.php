@@ -27,6 +27,7 @@ class SchedulingController extends Controller
         }
         $periodes = Periode::all();
         $divisions = Division::all();
+        $divisionnew = Division::orderBy('id', 'asc')->get();
         $detail = array();
         $matrix = array();
         $expatriates = Expatriate::all();
@@ -140,7 +141,8 @@ class SchedulingController extends Controller
 //        }
 //        return $temp;
 //        return $temp_color;
-        return view('scheduling', compact('matrix', 'detail', 'periodes', 'filter', 'temp'));
+
+        return view('scheduling', compact('matrix', 'detail', 'periodes', 'filter', 'temp', 'divisionnew', 'periode'));
     }
 
     /**

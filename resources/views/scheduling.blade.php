@@ -117,6 +117,41 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Tabel Matrix Adjacency (Matriks Ketetanggaan) -->> DINAMIS</h4>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-md">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    @foreach($divisionnew as $divisi)
+                                        <th>D-{{$divisi->id}}</th>
+                                    @endforeach
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($divisionnew as $keyDivisi => $divisi)
+                                    <tr>
+                                        <td>D-{{$divisi->id}}</td>
+                                        @foreach($divisionnew as $keyDivisi => $divisicount)
+                                            <?php $countdivisi = \App\ExpatriateDetail::join('divisions as d', 'expatriate_details.division_id', '=', 'd.id')->where('periode_id','=',$periode)->whereIn('division_id',array($divisi->id,$divisicount->id))->groupBy('expatriate_id')->havingRaw('COUNT(*) > 1')->count() ?>
+                                            <td>{{$countdivisi > 0 ? 1 : 0}}</td>
+                                        @endforeach
+                                    </tr>
+                                @endforeach
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-4 col-md-4 col-lg-4">
             <div class="card">
                 <div class="card-header">
