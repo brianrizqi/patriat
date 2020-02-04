@@ -11,8 +11,16 @@
     <div class="row">
         <div class="col-12 col-md-12 col-lg-12">
             <div class="card">
-                <div class="card-header">
-                    <h4>Tabel Penugasan Ekspatriat</h4>
+                <div class="card-header" style="display: inline">
+                    <h4 style="display: inline">Tabel Penugasan Ekspatriat</h4>
+                    <select name="periode" id="select-periode" class="form-control"
+                            style="width: 200px; float: right; display: inline-block">
+                        <option disabled selected>Periode</option>
+                        @foreach($periodes as $item)
+                            <option {{ request()->get('periode') == $item->id ? "selected" : "" }}
+                                    value="{{ $item->id }}">{{ $item->month . ' ' . $item->year }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -77,3 +85,13 @@
         }
     </script>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#select-periode').on('change', function () {
+            var sort = $(this).val();
+            var url = window.location.href.split('?')[0];
+            document.location = url + "?periode=" + sort;
+        })
+    });
+</script>

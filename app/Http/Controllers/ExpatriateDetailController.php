@@ -15,10 +15,16 @@ class ExpatriateDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $details = ExpatriateDetail::paginate(10);
-        return view('expatriate_details', compact('details'));
+        if ($request->has('periode')) {
+            $periode = $request->periode;
+        } else {
+            $periode = 1;
+        }
+        $periodes = Periode::all();
+        $details = ExpatriateDetail::where('periode_id',$periode)->paginate(10);
+        return view('expatriate_details', compact('details', 'periodes', 'periode'));
     }
 
     /**

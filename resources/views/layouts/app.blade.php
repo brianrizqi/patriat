@@ -67,17 +67,19 @@
                                 class="fas fa-child"></i><span>Eksaptriat</span></a>
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" href="{{ route('expatriate') }}">Data Ekspatriat</a></li>
-                            <li><a class="nav-link" href="{{ route('expatriate-details') }}">Penugasan Ekspatriat</a></li>
+                            <li><a class="nav-link" href="{{ route('expatriate-details') }}">Penugasan Ekspatriat</a>
+                            </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown {{ Request::is('division') ?  'active' : '' || Request::is('division-details') ?  'active' : '' }}">
-                        <a href="" class="nav-link has-dropdown"><i
-                                class="fas fa-dice-d6"></i><span>Divisi</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="{{ route('division') }}">Divisi</a></li>
-                            <li><a class="nav-link" href="{{ route('division-details') }}">Relasi Divisi</a></li>
-                        </ul>
-                    </li>
+                    {{--                    <li class="nav-item dropdown {{ Request::is('division') ?  'active' : '' || Request::is('division-details') ?  'active' : '' }}">--}}
+                    {{--                        <a href="" class="nav-link has-dropdown"><i--}}
+                    {{--                                class="fas fa-dice-d6"></i><span>Divisi</span></a>--}}
+                    {{--                        <ul class="dropdown-menu">--}}
+                    <li><a class="nav-link" href="{{ route('division') }}"><i
+                                class="fas fa-dice-d6"></i><span>Divisi</span></a></li>
+                    {{--                            <li><a class="nav-link" href="{{ route('division-details') }}">Relasi Divisi</a></li>--}}
+                    {{--                        </ul>--}}
+                    {{--                    </li>--}}
                     <li class="{{ Request::is('place') ?  'active' : '' }}">
                         <a href="{{ route('place') }}" class="nav-link"><i
                                 class="fas fa-building"></i><span>Data Tempat</span></a>

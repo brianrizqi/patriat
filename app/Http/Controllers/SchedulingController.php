@@ -164,6 +164,14 @@ class SchedulingController extends Controller
     public function store(Request $request)
     {
         $periode = $request->periode;
+        $a = array();
+        $divisionnew = Division::orderBy('id', 'asc')->get();
+        foreach ($divisionnew as $i => $divisi) {
+            foreach ($divisionnew as $keyDivisi => $divisicount) {
+                $countdivisi = \App\ExpatriateDetail::join('divisions as d', 'expatriate_details.division_id', '=', 'd.id')->where('periode_id', '=', $periode)->whereIn('division_id', array($divisi->id, $divisicount->id))->groupBy('expatriate_id')->havingRaw('COUNT(*) > 1')->count();
+                $a[$i][$keyDivisi] = $countdivisi;
+            }
+        }
         $check = Scheduling::where('periode_id', $periode)->get();
         if (count($check) != 0 || $periode == 0) {
             return redirect()->back()->withErrors(['Periode ini sudah di jadwalkan', 'The Message']);
@@ -264,7 +272,7 @@ class SchedulingController extends Controller
             });
             $colors = ['Kuning', 'Kuning', 'Merah', 'Hijau', 'Hijau', 'Merah', 'Biru'];
 //        $temp_color = array();
-            for ($i = 0; $i < count($matrix); $i++) {
+            for ($i = 0; $i < count($a); $i++) {
                 $temp[$i]['color'] = $colors[$i];
             }
 

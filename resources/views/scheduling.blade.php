@@ -50,24 +50,9 @@
                         <table class="table table-striped table-md">
                             <tr>
                                 <th></th>
-                                <th>E01</th>
-                                <th>E02</th>
-                                <th>E03</th>
-                                <th>E04</th>
-                                <th>E05</th>
-                                <th>E06</th>
-                                <th>E07</th>
-                                <th>E08</th>
-                                <th>E09</th>
-                                <th>E10</th>
-                                <th>E11</th>
-                                <th>E12</th>
-                                <th>E13</th>
-                                <th>E14</th>
-                                <th>E15</th>
-                                <th>E16</th>
-                                <th>E17</th>
-                                <th>E18</th>
+                                @for ($i = 0; $i < count($detail[0]); $i++)
+                                    <th>E{{ $i + 1 }}</th>
+                                @endfor
                             </tr>
                             @for ($i = 0; $i < count($detail); $i++)
                                 <tr>
@@ -83,6 +68,39 @@
             </div>
         </div>
     </div>
+    {{--    <div class="row">--}}
+    {{--        <div class="col-12 col-md-12 col-lg-12">--}}
+    {{--            <div class="card">--}}
+    {{--                <div class="card-header">--}}
+    {{--                    <h4>Tabel Matrix Adjacency (Matriks Ketetanggaan)</h4>--}}
+    {{--                </div>--}}
+    {{--                <div class="card-body p-0">--}}
+    {{--                    <div class="table-responsive">--}}
+    {{--                        <table class="table table-striped table-md">--}}
+    {{--                            <tr>--}}
+    {{--                                <th></th>--}}
+    {{--                                <th>D01</th>--}}
+    {{--                                <th>D02</th>--}}
+    {{--                                <th>D03</th>--}}
+    {{--                                <th>D04</th>--}}
+    {{--                                <th>D05</th>--}}
+    {{--                                <th>D06</th>--}}
+    {{--                                <th>D07</th>--}}
+    {{--                            </tr>--}}
+    {{--                            @for ($i = 0; $i < count($matrix); $i++)--}}
+    {{--                                <tr>--}}
+    {{--                                    <th>D0{{ ($i + 1) }}</th>--}}
+    {{--                                    @for ($j = 0; $j < count($matrix); $j++)--}}
+    {{--                                        <td>{{ $matrix[$i][$j] }}</td>--}}
+    {{--                                    @endfor--}}
+    {{--                                </tr>--}}
+    {{--                            @endfor--}}
+    {{--                        </table>--}}
+    {{--                    </div>--}}
+    {{--                </div>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
     <div class="row">
         <div class="col-12 col-md-12 col-lg-12">
             <div class="card">
@@ -92,57 +110,24 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
+                            <thead>
                             <tr>
                                 <th></th>
-                                <th>D01</th>
-                                <th>D02</th>
-                                <th>D03</th>
-                                <th>D04</th>
-                                <th>D05</th>
-                                <th>D06</th>
-                                <th>D07</th>
+                                @foreach($divisionnew as $divisi)
+                                    <th>D-{{$divisi->id}}</th>
+                                @endforeach
                             </tr>
-                            @for ($i = 0; $i < count($matrix); $i++)
-                                <tr>
-                                    <th>D0{{ ($i + 1) }}</th>
-                                    @for ($j = 0; $j < count($matrix); $j++)
-                                        <td>{{ $matrix[$i][$j] }}</td>
-                                    @endfor
-                                </tr>
-                            @endfor
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 col-md-12 col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Tabel Matrix Adjacency (Matriks Ketetanggaan) -->> DINAMIS</h4>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-md">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    @foreach($divisionnew as $divisi)
-                                        <th>D-{{$divisi->id}}</th>
-                                    @endforeach
-                                </tr>
                             </thead>
                             <tbody>
-                                @foreach($divisionnew as $keyDivisi => $divisi)
-                                    <tr>
-                                        <td>D-{{$divisi->id}}</td>
-                                        @foreach($divisionnew as $keyDivisi => $divisicount)
-                                            <?php $countdivisi = \App\ExpatriateDetail::join('divisions as d', 'expatriate_details.division_id', '=', 'd.id')->where('periode_id','=',$periode)->whereIn('division_id',array($divisi->id,$divisicount->id))->groupBy('expatriate_id')->havingRaw('COUNT(*) > 1')->count() ?>
-                                            <td>{{$countdivisi > 0 ? 1 : 0}}</td>
-                                        @endforeach
-                                    </tr>
-                                @endforeach
+                            @foreach($divisionnew as $keyDivisi => $divisi)
+                                <tr>
+                                    <td>D-{{$divisi->id}}</td>
+                                    @foreach($divisionnew as $keyDivisi => $divisicount)
+                                        <?php $countdivisi = \App\ExpatriateDetail::join('divisions as d', 'expatriate_details.division_id', '=', 'd.id')->where('periode_id', '=', $periode)->whereIn('division_id', array($divisi->id, $divisicount->id))->groupBy('expatriate_id')->havingRaw('COUNT(*) > 1')->count() ?>
+                                        <td>{{$countdivisi > 0 ? 1 : 0}}</td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
                             </tbody>
 
                         </table>
