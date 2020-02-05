@@ -167,11 +167,96 @@ class SchedulingController extends Controller
         $a = array();
         $divisionnew = Division::orderBy('id', 'asc')->get();
         foreach ($divisionnew as $i => $divisi) {
+            $k = 1;
             foreach ($divisionnew as $keyDivisi => $divisicount) {
                 $countdivisi = \App\ExpatriateDetail::join('divisions as d', 'expatriate_details.division_id', '=', 'd.id')->where('periode_id', '=', $periode)->whereIn('division_id', array($divisi->id, $divisicount->id))->groupBy('expatriate_id')->havingRaw('COUNT(*) > 1')->count();
                 $a[$i][$keyDivisi] = $countdivisi;
             }
         }
+        return $a;
+        $b[0][0] =0;
+        $b[0][1] =0;
+        $b[0][2] =2;
+        $b[0][3] =2;
+        $b[0][4] =2;
+        $b[0][5] =0;
+        $b[0][6] =2;
+
+        $b[1][0] =0;
+        $b[1][1] =0;
+        $b[1][2] =0;
+        $b[1][3] =2;
+        $b[1][4] =2;
+        $b[1][5] =2;
+        $b[1][6] =2;
+
+        $b[2][0] =2;
+        $b[2][1] =2;
+        $b[2][2] =0;
+        $b[2][3] =0;
+        $b[2][4] =2;
+        $b[2][5] =2;
+        $b[2][6] =0;
+
+        $b[3][0] =2;
+        $b[3][1] =2;
+        $b[3][2] =0;
+        $b[3][3] =2;
+        $b[3][4] =0;
+        $b[3][5] =0;
+        $b[3][6] =2;
+
+        $b[4][0] =0;
+        $b[4][1] =2;
+        $b[4][2] =2;
+        $b[4][3] =2;
+        $b[4][4] =0;
+        $b[4][5] =0;
+        $b[4][6] =2;
+
+        $b[5][0] =2;
+        $b[5][1] =2;
+        $b[5][2] =2;
+        $b[5][3] =0;
+        $b[5][4] =2;
+        $b[5][5] =0;
+        $b[5][6] =0;
+
+        $b[6][0] =2;
+        $b[6][1] =0;
+        $b[6][2] =0;
+        $b[6][3] =0;
+        $b[6][4] =0;
+        $b[6][5] =2;
+        $b[6][6] =2;
+        $c = array();
+        for ($i = 0; $i < count($b); $i++) {
+            if ($i == 0) {
+                $c[$i] = 1;
+            } else {
+                $c[$i] = 1;
+                for ($j = 0; $j < count($b[$i]); $j++) {
+
+//                    else {
+                        /* 1 1 2 3
+        $b[4][0] =0;
+        $b[4][1] =2;2
+        $b[4][2] =2;3
+        $b[4][3] =2;
+        $b[4][4] =0;
+        $b[4][5] =0;
+        $b[4][6] =2;*/
+                        if ($b[$i][$j] > 0) {
+                            if ($c[$i] == $c[$j]) {
+                                $c[$i]++;
+                            }
+                        }
+                    if ($j == ($i)) break;
+//                    }
+                }
+            }
+        }
+        return $c;
         $check = Scheduling::where('periode_id', $periode)->get();
         if (count($check) != 0 || $periode == 0) {
             return redirect()->back()->withErrors(['Periode ini sudah di jadwalkan', 'The Message']);
