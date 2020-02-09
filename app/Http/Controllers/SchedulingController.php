@@ -27,7 +27,6 @@ class SchedulingController extends Controller
         }
         $periodes = Periode::all();
         $divisions = Division::all();
-        $divisionnew = Division::orderBy('id', 'asc')->get();
         $detail = array();
         $matrix = array();
         $expatriates = Expatriate::all();
@@ -39,33 +38,7 @@ class SchedulingController extends Controller
                 $expatriate_details[$i][$j] = $item->expatriate_id;
             }
         }
-        // $difference = array();
-        // foreach ($expatriate_details as $i => $a) {
-        //     foreach ($expatriate_details as $j => $b) {
-        //         $aa = 0;
-        //         $bb = 0;
-        //         foreach ($expatriate_details[0] as $k => $c) {
-        //             foreach ($expatriate_details[0] as $l => $d) {
-        //                 if ($expatriate_details[$i][$k] == $expatriate_details[$j][$l]) {
-        //                     $difference[$i][$j] = $aa;
-        //                     $aa += 1;
-        //                 } else {
-        //                     $difference[$i][$j] = $bb;
-        //                     $bb += 1;
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        // $dif = array();
-        // foreach ($difference as $i => $item) {
-        //     foreach ($difference[$i] as $j => $item) {
-        //         if ($difference[$i][$j] == 24)
-        //             $dif[$i][$j] = "tidak ada hubungan";
-        //         else
-        //             $dif[$i][$j] = "ada hubungan";
-        //     }
-        // }
+
         foreach ($divisions as $i => $division) {
             foreach ($expatriates as $j => $expatriate) {
                 if (ExpatriateDetail::where('expatriate_id', $expatriate->id)
@@ -78,71 +51,71 @@ class SchedulingController extends Controller
                 }
             }
         }
-        $temp = array();
-        foreach ($divisions as $i => $division_a) {
-            $no = 0;
-            foreach ($divisions as $j => $division_b) {
-                if (DivisionDetail::where('division_a', $division_a->id)
-                        ->where('division_b', $division_b->id)->first() != null) {
-                    $matrix[$i][$j] = 1;
-                    $temp[$i + 1][$no] = $division_b->id;
-                    $no++;
-                } else if (DivisionDetail::where('division_b', $division_a->id)
-                        ->where('division_a', $division_b->id)->first() != null) {
-                    $matrix[$i][$j] = 1;
-                    $temp[$i + 1][$no] = $division_b->id;
-                    $no++;
-                } else {
-                    $matrix[$i][$j] = 0;
-                }
-                $temp[$i + 1]['id'] = $division_a->id;
-                $temp[$i + 1]['divisi'] = $division_a->name;
+
+        $relations = Division::orderBy('id', 'asc')->get();
+        foreach ($relations as $i => $divisi) {
+            $k = 1;
+            foreach ($relations as $keyDivisi => $divisicount) {
+                $countdivisi = \App\ExpatriateDetail::join('divisions as d', 'expatriate_details.division_id', '=', 'd.id')->where('periode_id', '=', $periode)->whereIn('division_id', array($divisi->id, $divisicount->id))->groupBy('expatriate_id')->havingRaw('COUNT(*) > 1')->count();
+                $countdivisi > 0 ? $count[$i]['jumlah'] = $k++ : '';
+                $a[$i][$keyDivisi] = $countdivisi;
             }
+            $count[$i]['divisi'] = $divisi->name;
         }
-        $filter = array();
-        for ($i = 0; $i < count($matrix); $i++) {
-            $jumlah = 0;
-            for ($j = 0; $j < count($matrix); $j++) {
-                $jumlah += $matrix[$i][$j];
-            }
-            $temp[$i + 1]['jumlah'] = $jumlah;
-            $filter[$i]['divisi'] = \App\Division::find($i + 1)->name;
-            $filter[$i]['jumlah'] = $jumlah;
-            $filter[$i]['id'] = $i + 1;
-        }
+        $colors = $this->findColor($a);
+//        return $a;
 
-
-        usort($filter, function ($a, $b) {
-            if ($a['jumlah'] == $b['jumlah']) return 0;
-            return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
-        });
-
-        usort($temp, function ($a, $b) {
-            if ($a['jumlah'] == $b['jumlah']) return 0;
-            return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
-        });
-        $colors = ['Kuning', 'Kuning', 'Merah', 'Hijau', 'Hijau', 'Merah', 'Biru'];
-        $index = ['1', '1', '2', '3', '3', '2', '4'];
-//        $temp_color = array();
-        for ($i = 0; $i < count($matrix); $i++) {
-            $temp[$i]['color'] = $colors[$i];
-            $temp[$i]['index'] = $index[$i];
-        }
-//        for ($i = 0; $i < count($temp); $i++) {
+//        $temp = array();
+//        foreach ($divisions as $i => $division_a) {
 //            $no = 0;
-//            for ($j = 0; $j < $temp[$i]['jumlah']; $j++) {
-//                for ($k = 0; $k < $i; $k++) {
-//                    if ($temp[$i][$j] == $temp[$k]['id']) {
-//                        $temp_color[$i][$no] = $temp[$k]['id'];
-//                        $no++;
-//                    }
+//            foreach ($divisions as $j => $division_b) {
+//                if (DivisionDetail::where('division_a', $division_a->id)
+//                        ->where('division_b', $division_b->id)->first() != null) {
+//                    $matrix[$i][$j] = 1;
+//                    $temp[$i + 1][$no] = $division_b->id;
+//                    $no++;
+//                } else if (DivisionDetail::where('division_b', $division_a->id)
+//                        ->where('division_a', $division_b->id)->first() != null) {
+//                    $matrix[$i][$j] = 1;
+//                    $temp[$i + 1][$no] = $division_b->id;
+//                    $no++;
+//                } else {
+//                    $matrix[$i][$j] = 0;
 //                }
+//                $temp[$i + 1]['id'] = $division_a->id;
+//                $temp[$i + 1]['divisi'] = $division_a->name;
 //            }
 //        }
-//        return $temp;
-//        return $temp_color;
-
-        return view('scheduling', compact('matrix', 'detail', 'periodes', 'filter', 'temp', 'divisionnew', 'periode'));
+//        $filter = array();
+//        for ($i = 0; $i < count($matrix); $i++) {
+//            $jumlah = 0;
+//            for ($j = 0; $j < count($matrix); $j++) {
+//                $jumlah += $matrix[$i][$j];
+//            }
+//            $temp[$i + 1]['jumlah'] = $jumlah;
+//            $filter[$i]['divisi'] = \App\Division::find($i + 1)->name;
+//            $filter[$i]['jumlah'] = $jumlah;
+//            $filter[$i]['id'] = $i + 1;
+//        }
+//
+//
+//        usort($filter, function ($a, $b) {
+//            if ($a['jumlah'] == $b['jumlah']) return 0;
+//            return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
+//        });
+//
+//        usort($temp, function ($a, $b) {
+//            if ($a['jumlah'] == $b['jumlah']) return 0;
+//            return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
+//        });
+//        $colors = ['Kuning', 'Kuning', 'Merah', 'Hijau', 'Hijau', 'Merah', 'Biru'];
+//        $index = ['1', '1', '2', '3', '3', '2', '4'];
+////        $temp_color = array();
+//        for ($i = 0; $i < count($matrix); $i++) {
+//            $temp[$i]['color'] = $colors[$i];
+//            $temp[$i]['index'] = $index[$i];
+//        }
+        return view('scheduling', compact('detail', 'periodes', 'periode', 'relations', 'count', 'colors'));
     }
 
     /**
@@ -173,90 +146,9 @@ class SchedulingController extends Controller
                 $a[$i][$keyDivisi] = $countdivisi;
             }
         }
-        return $a;
-        $b[0][0] =0;
-        $b[0][1] =0;
-        $b[0][2] =2;
-        $b[0][3] =2;
-        $b[0][4] =2;
-        $b[0][5] =0;
-        $b[0][6] =2;
-
-        $b[1][0] =0;
-        $b[1][1] =0;
-        $b[1][2] =0;
-        $b[1][3] =2;
-        $b[1][4] =2;
-        $b[1][5] =2;
-        $b[1][6] =2;
-
-        $b[2][0] =2;
-        $b[2][1] =2;
-        $b[2][2] =0;
-        $b[2][3] =0;
-        $b[2][4] =2;
-        $b[2][5] =2;
-        $b[2][6] =0;
-
-        $b[3][0] =2;
-        $b[3][1] =2;
-        $b[3][2] =0;
-        $b[3][3] =2;
-        $b[3][4] =0;
-        $b[3][5] =0;
-        $b[3][6] =2;
-
-        $b[4][0] =0;
-        $b[4][1] =2;
-        $b[4][2] =2;
-        $b[4][3] =2;
-        $b[4][4] =0;
-        $b[4][5] =0;
-        $b[4][6] =2;
-
-        $b[5][0] =2;
-        $b[5][1] =2;
-        $b[5][2] =2;
-        $b[5][3] =0;
-        $b[5][4] =2;
-        $b[5][5] =0;
-        $b[5][6] =0;
-
-        $b[6][0] =2;
-        $b[6][1] =0;
-        $b[6][2] =0;
-        $b[6][3] =0;
-        $b[6][4] =0;
-        $b[6][5] =2;
-        $b[6][6] =2;
-        $c = array();
-        for ($i = 0; $i < count($b); $i++) {
-            if ($i == 0) {
-                $c[$i] = 1;
-            } else {
-                $c[$i] = 1;
-                for ($j = 0; $j < count($b[$i]); $j++) {
-
-//                    else {
-                        /* 1 1 2 3
-        $b[4][0] =0;
-        $b[4][1] =2;2
-        $b[4][2] =2;3
-        $b[4][3] =2;
-        $b[4][4] =0;
-        $b[4][5] =0;
-        $b[4][6] =2;*/
-                        if ($b[$i][$j] > 0) {
-                            if ($c[$i] == $c[$j]) {
-                                $c[$i]++;
-                            }
-                        }
-                    if ($j == ($i)) break;
-//                    }
-                }
-            }
-        }
-        return $c;
+        // return $a;
+        $color = $this->findColor($a);
+        return $color;
         $check = Scheduling::where('periode_id', $periode)->get();
         if (count($check) != 0 || $periode == 0) {
             return redirect()->back()->withErrors(['Periode ini sudah di jadwalkan', 'The Message']);
@@ -437,5 +329,53 @@ class SchedulingController extends Controller
     {
         $detail = ExpatriateDetail::where('division_id', $id)->get();
         return view('show_expatriate', compact('detail'));
+    }
+
+    private function findColor($array)
+    {
+        $counted = array();
+        for ($i = 0; $i < count($array); $i++) {
+            $c = 0;
+            for ($j = 0; $j < count($array[0]); $j++) {
+                $c += $array[$i][$j];
+            }
+            $counted[$i]['idx'] = $i;
+            $counted[$i]['jumlah'] = $c;
+        }
+        usort($counted, function ($a, $b) {
+            if ($a['jumlah'] == $b['jumlah']) return 0;
+            return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
+        });
+        $newar = array();
+        for ($i = 0; $i < count($array); $i++) {
+            $newar[$i] = $array[$counted[$i]['idx']];
+        }
+        $array = $newar;
+
+        for ($i = 0; $i < count($array); $i++) {
+            $newar = array();
+            for ($j = 0; $j < count($array[0]); $j++) {
+                $newar[$j] = $array[$i][$counted[$j]['idx']];
+            }
+            $array[$i] = $newar;
+        }
+
+        $c = array();
+        for ($i = 0; $i < count($array); $i++) {
+            if ($i == 0) {
+                $c[$i] = 1;
+            } else {
+                $c[$i] = 1;
+                for ($j = 0; $j < count($array[$i]); $j++) {
+                    if ($array[$i][$j] > 0) {
+                        if ($c[$i] == $c[$j]) {
+                            $c[$i]++;
+                        }
+                    }
+                    if ($j == ($i)) break;
+                }
+            }
+        }
+        return $c;
     }
 }

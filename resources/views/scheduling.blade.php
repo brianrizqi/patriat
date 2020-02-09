@@ -113,16 +113,16 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                @foreach($divisionnew as $divisi)
+                                @foreach($relations as $divisi)
                                     <th>D-{{$divisi->id}}</th>
                                 @endforeach
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($divisionnew as $keyDivisi => $divisi)
+                            @foreach($relations as $keyDivisi => $divisi)
                                 <tr>
                                     <td>D-{{$divisi->id}}</td>
-                                    @foreach($divisionnew as $keyDivisi => $divisicount)
+                                    @foreach($relations as $keyDivisi => $divisicount)
                                         <?php $countdivisi = \App\ExpatriateDetail::join('divisions as d', 'expatriate_details.division_id', '=', 'd.id')->where('periode_id', '=', $periode)->whereIn('division_id', array($divisi->id, $divisicount->id))->groupBy('expatriate_id')->havingRaw('COUNT(*) > 1')->count() ?>
                                         <td>{{$countdivisi > 0 ? 1 : 0}}</td>
                                     @endforeach
@@ -145,25 +145,13 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                {{--                                <th>Divisi</th>--}}
-                                {{--                                <th>Jumlah</th>--}}
-                            </tr>
-                            @for ($i = 0; $i < count($matrix); $i++)
-                                @php $jumlah = 0; @endphp
+                            @foreach($count as $item)
                                 <tr>
-                                    @for ($j = 0; $j < count($matrix); $j++)
-                                        @php $jumlah += $matrix[$i][$j]; @endphp
-                                    @endfor
-                                    {{--                                    <td>{{ \App\Division::find($i+1)['name'] }}</td>--}}
                                     <td>[</td>
-                                    <td>{{ $jumlah }}</td>
+                                    <td>{{ $item['jumlah'] }}</td>
                                     <td>]</td>
                                 </tr>
-                            @endfor
+                            @endforeach
                         </table>
                     </div>
                 </div>
@@ -177,16 +165,14 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                {{--                                <th>Divisi</th>--}}
-                                {{--                                <th>Jumlah</th>--}}
-                            </tr>
-                            @foreach ($filter as $item)
+                            @php
+                                usort($count, function ($a, $b) {
+                                if ($a['jumlah'] == $b['jumlah']) return 0;
+                                return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
+                                });
+                            @endphp
+                            @foreach ($count as $item)
                                 <tr>
-                                    {{--                                    <td>{{ $item['divisi'] }}</td>--}}
                                     <td>[</td>
                                     <td>{{ $item['jumlah'] }}</td>
                                     <td>]</td>
@@ -205,11 +191,7 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
-                            <tr>
-                                <th>Index</th>
-                                <th>Divisi</th>
-                            </tr>
-                            @foreach ($filter as $i => $item)
+                            @foreach ($count as $i => $item)
                                 <tr>
                                     <td>{{ $i + 1 }}</td>
                                     <td>{{ $item['divisi'] }}</td>
@@ -230,23 +212,27 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
+                            @php
+                                foreach ($count as $i => $item) {
+                                $count[$i]['color'] = $colors[$i];
+                            }
+                            @endphp
                             <tr>
                                 <th>Divisi</th>
                                 <th>Warna</th>
                             </tr>
-                            @foreach ($temp as $i => $item)
+                            @foreach($count as $item)
                                 <tr>
                                     <td>{{ $item['divisi'] }}</td>
                                     <td>
-                                        {{ $item['color'] }}
-                                        @if($item['color']== 'Merah')
-                                            <span class="dot btn-danger"></span>
-                                        @elseif($item['color']== 'Kuning')
-                                            <span class="dot btn-warning"></span>
-                                        @elseif($item['color']== 'Hijau')
-                                            <span class="dot btn-success"></span>
+                                        @if($item['color']== 1)
+                                            Merah <span class="dot btn-danger"></span>
+                                        @elseif($item['color']== 2)
+                                            Kuning <span class="dot btn-warning"></span>
+                                        @elseif($item['color']== 3)
+                                            Hijau <span class="dot btn-success"></span>
                                         @else
-                                            <span class="dot btn-primary"></span>
+                                            Biru <span class="dot btn-primary"></span>
                                         @endif
                                     </td>
                                 </tr>
@@ -264,10 +250,10 @@
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
-                            @foreach ($temp as $i => $item)
+                            @foreach ($count as $item)
                                 <tr>
                                     <td>[</td>
-                                    <td>{{ $item['index'] }}</td>
+                                    <td>{{ $item['color'] }}</td>
                                     <td>
                                         ]
                                     </td>
