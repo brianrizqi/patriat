@@ -60,11 +60,11 @@
                         </table>
                     </div>
                 </div>
-                <div class="card-footer text-right">
-                    <nav class="d-inline-block">
-                        {{ $details->links() }}
-                    </nav>
-                </div>
+{{--                <div class="card-footer text-right">--}}
+{{--                    <nav class="d-inline-block">--}}
+{{--                        {{ $details->links() }}--}}
+{{--                    </nav>--}}
+{{--                </div>--}}
             </div>
         </div>
     </div>

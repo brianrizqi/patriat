@@ -35,8 +35,8 @@
                             <h4>Login</h4>
                         </div>
                         @if($errors->any())
-                            <div class="card-header">
-                                <h4 style="color: red">{{$errors->first()}}</h4>
+                            <div class="alert alert-danger">
+                                {{$errors->first()}}
                             </div>
                         @endif
                         <div class="card-body">

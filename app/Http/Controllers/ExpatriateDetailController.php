@@ -23,7 +23,7 @@ class ExpatriateDetailController extends Controller
             $periode = 1;
         }
         $periodes = Periode::all();
-        $details = ExpatriateDetail::where('periode_id',$periode)->paginate(10);
+        $details = ExpatriateDetail::where('periode_id',$periode)->get();
         return view('expatriate_details', compact('details', 'periodes', 'periode'));
     }
 
