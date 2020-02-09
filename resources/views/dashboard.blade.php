@@ -32,7 +32,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Detail Ekspatriat</h4>
+                            <h4>Penugasan Ekspatriat</h4>
                         </div>
                         <div class="card-body">
                             {{ \App\ExpatriateDetail::all()->count() }}
