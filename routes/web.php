@@ -61,13 +61,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/scheduling/show', 'SchedulingController@show')->name('scheduling.show');
     Route::get('/scheduling/show/{id}', 'SchedulingController@showExpatriate')->name('scheduling.show.expatriate');
     Route::post('/scheduling', 'SchedulingController@store');
+    Route::post('/scheduling/delete', 'SchedulingController@destroy')->name('scheduling.destroy');
 
     Route::get('/periode', 'PeriodeController@index')->name('periode');
     Route::get('/periode/create', 'PeriodeController@create')->name('periode.create');
-//    Route::get('/place/edit/{id}', 'PlaceController@edit')->name('place.edit');
     Route::post('/periode', 'PeriodeController@store')->name('periode.store');
-//    Route::post('/place/{id}/edit', 'PlaceController@update')->name('place.update');
-//    Route::post('/place/delete', 'PlaceController@destroy')->name('place.destroy');
 });
 
 Route::group(['prefix' => 'member'], function () {

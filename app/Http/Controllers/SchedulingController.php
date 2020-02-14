@@ -199,9 +199,10 @@ class SchedulingController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        Scheduling::where('periode_id', $request->periode)->delete();
+        return redirect()->route('scheduling.show');
     }
 
     public function showExpatriate($id)
