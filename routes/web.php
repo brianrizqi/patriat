@@ -71,3 +71,134 @@ Route::group(['prefix' => 'admin'], function () {
 Route::group(['prefix' => 'member'], function () {
     Route::get('/index', 'MemberController@index')->name('member.index');
 });
+
+Route::get('/matrix',function(){
+    $array = array();
+    $relations = \App\Division::orderBy('id', 'asc')->get();
+        foreach ($relations as $i => $divisi) {
+            $k = 1;
+            foreach ($relations as $keyDivisi => $divisicount) {
+                $countdivisi = \App\ExpatriateDetail::join('divisions as d', 'expatriate_details.division_id', '=', 'd.id')->where('periode_id', '=', 1)->whereIn('division_id', array($divisi->id, $divisicount->id))->groupBy('expatriate_id')->havingRaw('COUNT(*) > 1')->count();
+                $countdivisi > 0 ? $count[$i]['jumlah'] = $k++ : '';
+                $array[$i][$keyDivisi] = $countdivisi;
+            }
+            $count[$i]['divisi'] = $divisi->name;
+        }
+
+    return $array;
+});
+Route::get('/matrix-urut',function(){
+   $array = array();
+    $relations = \App\Division::orderBy('id', 'asc')->get();
+        foreach ($relations as $i => $divisi) {
+            $k = 1;
+            foreach ($relations as $keyDivisi => $divisicount) {
+                $countdivisi = \App\ExpatriateDetail::join('divisions as d', 'expatriate_details.division_id', '=', 'd.id')->where('periode_id', '=', 1)->whereIn('division_id', array($divisi->id, $divisicount->id))->groupBy('expatriate_id')->havingRaw('COUNT(*) > 1')->count();//jumlah relasi
+                $countdivisi > 0 ? $count[$i]['jumlah'] = $k++ : ''; 
+                $array[$i][$keyDivisi] = $countdivisi; //menampung nilai jumlah relasi tiap divisi
+            }
+            $count[$i]['divisi'] = $divisi->name;
+        }
+
+        $counted = array();
+
+        //menjumlahkan jumlah relasi tiap divisi
+        for ($i = 0; $i < count($array); $i++) {
+            $c = 0;
+            for ($j = 0; $j < count($array[0]); $j++) {
+                $c += $array[$i][$j];
+            }
+            $counted[$i]['idx'] = $i;
+            $counted[$i]['jumlah'] = $c;
+        }
+
+        //mengurutkan jumlah relasi tiap divisi
+        usort($counted, function ($a, $b) {
+            if ($a['jumlah'] == $b['jumlah']) return 0;
+            return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
+        });
+
+        //menampung nilai jumlah relasi tiap divisi setelah diurutkan
+        $newar = array();
+        for ($i = 0; $i < count($array); $i++) {
+            $newar[$i] = $array[$counted[$i]['idx']];
+        }
+        $array = $newar;
+
+        //menyesuaikan dengan urutan divisi yang baru
+        for ($i = 0; $i < count($array); $i++) {
+            $newar = array();
+            for ($j = 0; $j < count($array[0]); $j++) {
+                $newar[$j] = $array[$i][$counted[$j]['idx']];
+            }
+            $array[$i] = $newar;
+        }
+
+    return $array; 
+});
+
+Route::get('/matrix-color',function(){
+   $array = array();
+    $relations = \App\Division::orderBy('id', 'asc')->get();
+        foreach ($relations as $i => $divisi) {
+            $k = 1;
+            foreach ($relations as $keyDivisi => $divisicount) {
+                $countdivisi = \App\ExpatriateDetail::join('divisions as d', 'expatriate_details.division_id', '=', 'd.id')->where('periode_id', '=', 1)->whereIn('division_id', array($divisi->id, $divisicount->id))->groupBy('expatriate_id')->havingRaw('COUNT(*) > 1')->count();//jumlah relasi
+                $countdivisi > 0 ? $count[$i]['jumlah'] = $k++ : ''; 
+                $array[$i][$keyDivisi] = $countdivisi; //menampung nilai jumlah relasi tiap divisi
+            }
+            $count[$i]['divisi'] = $divisi->name;
+        }
+
+        $counted = array();
+
+        //menjumlahkan jumlah relasi tiap divisi
+        for ($i = 0; $i < count($array); $i++) {
+            $c = 0;
+            for ($j = 0; $j < count($array[0]); $j++) {
+                $c += $array[$i][$j];
+            }
+            $counted[$i]['idx'] = $i;
+            $counted[$i]['jumlah'] = $c;
+        }
+
+        //mengurutkan jumlah relasi tiap divisi
+        usort($counted, function ($a, $b) {
+            if ($a['jumlah'] == $b['jumlah']) return 0;
+            return $a['jumlah'] < $b['jumlah'] ? 1 : -1;
+        });
+
+        //menampung nilai jumlah relasi tiap divisi setelah diurutkan
+        $newar = array();
+        for ($i = 0; $i < count($array); $i++) {
+            $newar[$i] = $array[$counted[$i]['idx']];
+        }
+        $array = $newar;
+
+        //menyesuaikan dengan urutan divisi yang baru
+        for ($i = 0; $i < count($array); $i++) {
+            $newar = array();
+            for ($j = 0; $j < count($array[0]); $j++) {
+                $newar[$j] = $array[$i][$counted[$j]['idx']];
+            }
+            $array[$i] = $newar;
+        }
+
+    $c = array();
+        for ($i = 0; $i < count($array); $i++) {
+            if ($i == 0) { //jika array pertama langsung diberi nilai 1
+                $c[$i] = 1;
+            } else {
+                $c[$i] = 1;
+                for ($j = 0; $j < count($array[$i]); $j++) { // mengulang sesuai dengan jumlah relasi tiap divisinya
+                    if ($array[$i][$j] > 0) { //pengecekkan jika ada relasi
+                        if ($c[$i] == $c[$j]) { 
+                            $c[$i]++; //jika ada relasi, sama dengan warna , maka warna +1
+                        }
+                    }
+                    if ($j == ($i)) break;
+                }
+            }
+        }
+        return $c;
+});

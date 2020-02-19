@@ -213,6 +213,7 @@ class SchedulingController extends Controller
 
     private function findColor($array)
     {
+        //mengurutkan sesuai jumlah relasi
         $counted = array();
         for ($i = 0; $i < count($array); $i++) {
             $c = 0;
@@ -239,7 +240,8 @@ class SchedulingController extends Controller
             }
             $array[$i] = $newar;
         }
-
+        
+        //memberi warna
         $c = array();
         for ($i = 0; $i < count($array); $i++) {
             if ($i == 0) {
