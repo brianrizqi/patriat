@@ -16,7 +16,7 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-md">
                             <tr>
-                                <th>ID</th>
+                                <th>No</th>
                                 <th>Nama</th>
                                 <th>Alamat</th>
                                 <th>Email</th>
@@ -24,9 +24,9 @@
                                 <th>Jenis Kelamin</th>
                                 <th>Action</th>
                             </tr>
-                            @foreach($expatriates as $expatriate)
+                            @foreach($expatriates as $i => $expatriate)
                                 <tr>
-                                    <td>E{{$expatriate->id}}</td>
+                                    <td>{{ ($i + 1) }}</td>
                                     <td>{{$expatriate->name}}</td>
                                     <td>{{$expatriate->address}}</td>
                                     <td>{{$expatriate->email}}</td>
