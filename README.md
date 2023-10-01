@@ -8,5 +8,6 @@ Yeah, you were reading it right, but basically, this is an employees' scheduling
 - cp .env.example .env
 - don't forget to set your database up
 - php artisan key:generate
+- php artisan serve
 
 **p.s don't forget to update this readme in every change you made**
